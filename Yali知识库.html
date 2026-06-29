@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Yali 知识库 · IPERC 全线业务手册</title>
+<style>
+:root{--p:#0d2137;--a:#d4942b;--bg:#f8f9fa;--card:#fff;--bdr:#ddd;--t:#222;--m:#666;--ok:#1a7a3a;--er:#b5343a;--info:#1a5c9a;--warn:#b8780a;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--t);line-height:1.7;}
+.sidebar{position:fixed;left:0;top:0;width:220px;height:100vh;background:var(--p);color:#fff;overflow-y:auto;padding:16px 0;z-index:10;}
+.sidebar h2{font-size:13px;padding:0 16px 10px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:6px;}
+.sidebar a{display:block;padding:5px 16px;font-size:10px;color:rgba(255,255,255,.7);text-decoration:none;transition:all .15s;cursor:pointer;}
+.sidebar a:hover,.sidebar a.active{color:#fff;background:rgba(255,255,255,.08);border-left:3px solid var(--a);}
+.main{margin-left:220px;padding:20px;max-width:940px;}
+.header{background:#fff;border-bottom:1px solid var(--bdr);padding:14px 20px;margin:-20px -20px 16px;position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;}
+.header h1{font-size:16px;color:var(--p);}.header input{padding:6px 12px;border:1.5px solid var(--bdr);border-radius:6px;font-size:11px;width:260px;}
+.header input:focus{outline:none;border-color:var(--a);}
+.page{display:none;}.page.active{display:block;}
+section{margin-bottom:16px;padding:18px;background:var(--card);border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.03);}
+section h2{font-size:14px;color:var(--p);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--a);}
+section h3{font-size:12px;color:var(--p);margin:10px 0 6px;}
+table{width:100%;border-collapse:collapse;font-size:10px;margin:6px 0;}
+th{background:#f5f3ee;padding:5px 7px;text-align:left;font-size:9px;text-transform:uppercase;color:var(--m);border-bottom:2px solid var(--bdr);}
+td{padding:4px 7px;border-bottom:1px solid #f0ede4;vertical-align:top;}
+tr:hover td{background:#fdfcf9;}
+.tag{display:inline-block;padding:1px 6px;border-radius:10px;font-size:8px;font-weight:600;}
+.tag.na{background:#e8f0fe;color:var(--info);}.tag.aus{background:#e6f7ed;color:var(--ok);}
+.tag.warn{background:#fef9e8;color:var(--warn);}.tag.err{background:#fef5f5;color:var(--er);}.tag.info{background:#e8f0fe;color:var(--info);}.tag.ddl{background:#f3e8ff;color:#7c3aed;}
+.channels{width:100%;border-collapse:collapse;font-size:11px;}.channels th{background:var(--p);color:#fff;padding:6px 8px;text-align:center;position:sticky;top:0;}.channels td{padding:5px 8px;border-bottom:1px solid var(--bdr);text-align:center;vertical-align:middle;}.channels td:first-child,.channels td:nth-child(2){text-align:left;}.channels .group td{background:#f8f9fa;border-top:2px solid var(--p);}.channels tr:hover td{background:#e8f0fe;}.channels .dl{text-decoration:none;font-size:14px;}.channels .dl:hover{opacity:0.7;}.btn-back{display:inline-block;padding:4px 12px;background:var(--p);color:#fff;border-radius:4px;font-size:10px;cursor:pointer;margin-bottom:10px;text-decoration:none;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;}
+.card{background:var(--card);border-radius:8px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,0.04);cursor:pointer;transition:all .15s;border-left:4px solid var(--info);}
+.card:hover{box-shadow:0 4px 12px rgba(0,0,0,0.08);transform:translateY(-1px);}
+.card.aus{border-left-color:var(--ok);}.card.leap{border-left-color:var(--a);}
+.card h3{font-size:13px;color:var(--p);margin-bottom:4px;}.card p{font-size:10px;color:var(--m);}
+.card .price{font-size:16px;font-weight:800;color:var(--a);margin:4px 0;}
+.card .meta{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px;}
+.faq-item{margin:6px 0;padding:8px 12px;background:#faf9f5;border-radius:6px;border-left:3px solid var(--a);}
+.faq-item .q{font-size:11px;font-weight:700;color:var(--p);}.faq-item .a{font-size:10px;color:var(--m);margin-top:3px;}
+.note{font-size:9px;color:var(--m);font-style:italic;margin-top:4px;}
+.info-card{background:#faf9f5;border:1px solid #e8e5db;border-radius:6px;padding:12px;margin:8px 0;}
+.info-card h4{font-size:11px;color:var(--p);margin-bottom:4px;}
+.info-card p{font-size:10px;color:var(--m);line-height:1.5;}
+mark{background:#fef3e0;padding:0 2px;}
+@media(max-width:768px){.sidebar{display:none;}.main{margin-left:0;}}
+</style>
+</head>
+<body>
+<div class="sidebar">
+  <h2>📚 Yali 知识库</h2>
+  <a onclick="showPage('home')" class="active">🏠 首页</a>
+  <a onclick="showPage('accp10n')">北美A类 10门</a>
+  <a onclick="showPage('accp14n')">北美A类升级 14门</a>
+  <a onclick="showPage('accp20n')">北美Plus 20门</a>
+  <a onclick="showPage('calLeap')">加州跃升</a>
+  <a onclick="showPage('xhdJunior')">新航道少年班</a>
+          <a onclick="showPage('xhdQihang')">新航道启航计划</a>
+  <a onclick="showPage('accp10a')">澳新 10门</a>
+  <a onclick="showPage('accp20a')">澳新Plus 20门</a>
+  <a onclick="showPage('gcp')">GCP</a>
+  <a onclick="showPage('channels')">🤝 渠道合作</a>
+          <a onclick="showPage('campus')">🏫 线下校区</a>
+  <a onclick="showPage('pricing')">💰 定价总表</a>
+  <a onclick="showPage('lowerSchool')">📚 小学&初中课程</a>
+  <a onclick="showPage('rgaCourses')">📗 RGA高中课程</a>
+          <a onclick="showPage('schools')">🏛️ 注册院校</a>
+  <a onclick="showPage('eap')">🗣️ EAP</a>
+  <a onclick="showPage('rga')">📊 RGA评估</a>
+  <a onclick="showPage('ops')">🔄 运营流程</a>
+  <a onclick="showPage('faq')">❓ FAQ</a>
+  <a onclick="showPage('links')">🔗 外部链接</a>
+  <a onclick="showPage('cases')">📂 学生案例</a>
+</div>
+
+<div class="main">
+<div class="header">
+  <h1><span id="pageTitle">IPERC 全线业务手册</span></h1>
+  <input id="search" placeholder="🔍 搜索..." oninput="search()">
+</div>
+
+<!-- ==================== HOME ==================== -->
+<div class="page active" id="page-home">
+  <h2 style="font-size:14px;margin-bottom:12px;">产品体系</h2>
+  <div class="grid">
+    <div class="card" onclick="showPage('accp10n')"><h3>ACCP 北美 A类 10门</h3><div class="price">¥310,000</div><p>免标化升读北美名校大二 · MU注册</p><div class="meta"><span class="tag na">北美</span><span class="tag info">MU</span><span class="tag ddl">DDL 提前10月</span></div></div>
+    <div class="card" onclick="showPage('accp14n')"><h3>ACCP 北美 A类升级 14门</h3><div class="price">¥428,000</div><p>更多课程覆盖 G11+G12 · MU注册</p><div class="meta"><span class="tag na">北美</span><span class="tag info">MU</span><span class="tag ddl">DDL 提前12月</span></div></div>
+    <div class="card" onclick="showPage('accp20n')"><h3>ACCP 北美 Plus 20门</h3><div class="price">¥590,000</div><p>直升大三 · 保录 · GCC注册</p><div class="meta"><span class="tag na">北美</span><span class="tag info">GCC</span><span class="tag warn">保录</span><span class="tag ddl">DDL 提前16月</span></div></div>
+    <div class="card" onclick="showPage('calLeap')"><h3>ACCP 加州跃升计划</h3><div class="price">¥71.66~81.79万</div><p>12线下+5夏校 · UC TAG保障 · SMC+GCC · 北外/复旦</p><div class="meta"><span class="tag na">北美</span><span class="tag info">SMC+GCC</span><span class="tag warn">TAG</span><span class="tag ddl">DDL 提前14月</span></div></div>
+    <div class="card" onclick="showPage('xhdJunior')"><h3>新航道 少年班 20门</h3><div class="price">¥520,000</div><p>年满15岁 · GCC · 寒假/周末线上+线下校区</p><div class="meta"><span class="tag na">北美</span><span class="tag info">GCC</span><span class="tag warn">新航道专供</span><span class="tag ddl">DDL 提前16月</span></div></div>
+    <div class="card aus" onclick="showPage('accp10a')"><h3>ACCP 澳新 10门</h3><div class="price">¥185,000</div><p>免预科升读澳新名校大一 · Davis/MU</p><div class="meta"><span class="tag aus">澳新</span><span class="tag info">Davis</span></div></div>
+    <div class="card aus" onclick="showPage('accp20a')"><h3>ACCP 澳新Plus 20门</h3><div class="price">¥285,000</div><p>文商方向 · GCC · 其他专业可申但仅免预科</p><div class="meta"><span class="tag aus">澳新</span><span class="tag info">GCC</span></div></div>
+    <div class="card" onclick="showPage('gcp')"><h3>GCP 全球大学直通</h3><div class="price">¥52.2万</div><p>线下校区+美国暑校 · 可选副学士 · 不保录</p><div class="meta"><span class="tag na">北美</span><span class="tag info">MU+GCC</span></div></div>
+  </div>
+
+  <h2 style="font-size:14px;margin:16px 0 10px;">快速入口</h2>
+  <div class="grid">
+    <div class="card" onclick="showPage('campus')" style="border-left-color:#1a7a3a;"><h3>🏫 线下校区</h3><p>南大 / 北外 / 复旦 详情对比</p></div>
+    <div class="card" onclick="showPage('pricing')" style="border-left-color:#d4942b;"><h3>💰 定价总表</h3><p>套餐+单报+渠道+第三方费用</p></div>
+    <div class="card" onclick="showPage('schools')" style="border-left-color:#1a5c9a;"><h3>🏛️ 注册院校</h3><p>MU/GCC/SMC/Davis 规则</p></div>
+    <div class="card" onclick="showPage('eap')" style="border-left-color:#b8780a;"><h3>🗣️ EAP 语言</h3><p>对标分数+课时+免试政策</p></div>
+    <div class="card" onclick="showPage('rga')" style="border-left-color:#b5343a;"><h3>📊 RGA 评估</h3><p>双标准+各体系门槛</p></div>
+    <div class="card" onclick="showPage('faq')" style="border-left-color:#6b3fa0;"><h3>❓ FAQ</h3><p>常见问题速查</p></div>
+  </div>
+</div>
+
+<!-- ==================== ACCP 10N DETAIL ==================== -->
+<div class="page" id="page-accp10n">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>ACCP 北美直升 A类 10门</h2>
+  <table><tr><th>价格</th><td>¥310,000</td><th>注册</th><td>MU (马凯特大学)</td></tr>
+  <tr><th>课程数</th><td>10门双学分</td><th>DDL</th><td>提前10个月</td></tr>
+  <tr><th>课时</th><td>600h</td><th>升读</th><td>北美名校大二</td></tr>
+  <tr><th>赠课</th><td colspan="3">赠4门RGA录播覆盖 G11+G12（哲学/健康/艺术史/环境科学）</td></tr></table></section>
+
+  <section><h2>课程列表（按方向）</h2>
+  <table><tr><th>#</th><th>人文/社科</th><th>商科</th><th>STEM</th></tr>
+  <tr><td>1</td><td>大学写作1</td><td>大学写作1</td><td>大学写作1</td></tr>
+  <tr><td>2</td><td>微积分1</td><td>微积分1</td><td>微积分1</td></tr>
+  <tr><td>3</td><td>统计学</td><td>微观经济学</td><td>微积分2</td></tr>
+  <tr><td>4</td><td>心理学</td><td>宏观经济学</td><td>物理1</td></tr>
+  <tr><td>5</td><td>美国历史</td><td>财务会计</td><td>计算机Python</td></tr>
+  <tr><td>6</td><td>美国政府</td><td>统计学</td><td>统计学</td></tr>
+  <tr><td>7</td><td>公共演讲</td><td>商业导论</td><td>化学1</td></tr>
+  <tr><td>8</td><td>人文地理</td><td>市场营销</td><td>生物1</td></tr>
+  <tr><td>9</td><td>大众传媒</td><td>公共演讲</td><td>心理学</td></tr>
+  <tr><td>10</td><td>社会学</td><td>心理学</td><td>公共演讲</td></tr></table></section>
+
+  <section><h2>注册排课</h2>
+  <p>MU严格学校：夏≤4, 秋≤5, 春≤5。排课=注册。</p>
+  <p>封闭申请：10门双学分 + 赠4门美高覆盖 G11+G12（4+2 G11, 8门 G12）</p>
+  <p>入读要求：GPA 3.0+ / 单科B+ / EAP2 / 托福61或雅思5.5</p>
+  <p>升读要求：GPA 3.3+ / 写作B+ / 雅思6.5或托福80</p></section>
+</div>
+
+<!-- ==================== ACCP 14N DETAIL ==================== -->
+<div class="page" id="page-accp14n">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>ACCP 北美 A类升级 14门</h2>
+  <table><tr><th>价格</th><td>¥428,000</td><th>注册</th><td>MU (马凯特大学)</td></tr>
+  <tr><th>课程数</th><td>14门双学分</td><th>DDL</th><td>提前12个月</td></tr>
+  <tr><th>课时</th><td>840h</td><th>升读</th><td>北美名校大二</td></tr>
+  <tr><th>赠课</th><td colspan="3">覆盖G11+G12（6门G11，8门G12）</td></tr></table></section>
+
+  <section><h2>课程列表</h2>
+  <table><tr><th>#</th><th>人文/社科</th><th>商科</th><th>STEM</th></tr>
+  <tr><td>1</td><td>大学写作1</td><td>大学写作1</td><td>大学写作1</td></tr>
+  <tr><td>2</td><td>微积分1</td><td>微积分1</td><td>微积分1</td></tr>
+  <tr><td>3</td><td>统计</td><td>微观经济学</td><td>微积分2</td></tr>
+  <tr><td>4</td><td>心理学</td><td>宏观经济学</td><td>物理1</td></tr>
+  <tr><td>5</td><td>美国历史</td><td>金融会计</td><td>物理2</td></tr>
+  <tr><td>6</td><td>美国政府</td><td>管理会计</td><td>计算机Python</td></tr>
+  <tr><td>7</td><td>公共演讲</td><td>统计</td><td>计算机Java</td></tr>
+  <tr><td>8</td><td>人文地理</td><td>商业导论</td><td>统计</td></tr>
+  <tr><td>9</td><td>大众传媒</td><td>市场营销</td><td>化学1</td></tr>
+  <tr><td>10</td><td>社会学</td><td>公共演讲</td><td>生物1</td></tr>
+  <tr><td>11</td><td>大学写作2</td><td>心理学</td><td>心理学</td></tr>
+  <tr><td>12</td><td>西方艺术史1</td><td>微积分2</td><td>公共演讲</td></tr>
+  <tr><td>13</td><td>微观经济学</td><td>大学写作2</td><td>大学写作2</td></tr>
+  <tr><td>14</td><td>计算机Python</td><td>计算机Python</td><td>线性代数</td></tr></table></section>
+
+  <section><h2>与10门对比</h2>
+  <p>多4门课：eng2 + 额外专业核心课。G10学生入读10门不够用时可升级14门。成绩优秀学生可将10门院校名单升级为14门名单（需BD确认）。</p></section>
+</div>
+
+<!-- ==================== ACCP 20N DETAIL ==================== -->
+<div class="page" id="page-accp20n">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>ACCP 北美 Plus 20门</h2>
+  <table><tr><th>价格</th><td>¥590,000</td><th>注册</th><td>GCC (杰纳西社区学院)</td></tr>
+  <tr><th>课程数</th><td>20门双学分</td><th>DDL</th><td>提前16个月</td></tr>
+  <tr><th>课时</th><td>1200h</td><th>升读</th><td>北美名校大三（保录）</td></tr>
+  <tr><th>赠课</th><td colspan="3">覆盖G9-G12全部高中课程，赠4门录播</td></tr></table></section>
+
+  <section><h2>课程列表</h2>
+  <table><tr><th>#</th><th>人文/社科</th><th>商科</th><th>STEM</th></tr>
+  <tr><td>1</td><td>大学写作1</td><td>大学写作1</td><td>大学写作1</td></tr>
+  <tr><td>2</td><td>大学写作2</td><td>大学写作2</td><td>大学写作2</td></tr>
+  <tr><td>3</td><td>微积分1</td><td>微积分1</td><td>微积分1</td></tr>
+  <tr><td>4</td><td>统计</td><td>微积分2</td><td>微积分2</td></tr>
+  <tr><td>5</td><td>心理学</td><td>微观经济学</td><td>微积分3</td></tr>
+  <tr><td>6</td><td>美国历史</td><td>宏观经济学</td><td>物理1</td></tr>
+  <tr><td>7</td><td>美国政府</td><td>金融会计</td><td>物理2</td></tr>
+  <tr><td>8</td><td>公共演讲</td><td>管理会计</td><td>计算机Python</td></tr>
+  <tr><td>9</td><td>人文地理</td><td>统计</td><td>计算机Java</td></tr>
+  <tr><td>10</td><td>大众传媒</td><td>商业导论</td><td>统计</td></tr>
+  <tr><td>11</td><td>社会学</td><td>市场营销</td><td>化学1</td></tr>
+  <tr><td>12</td><td>西方艺术史1</td><td>公共演讲</td><td>化学2</td></tr>
+  <tr><td>13</td><td>西方艺术史2</td><td>心理学</td><td>生物1</td></tr>
+  <tr><td>14</td><td>微观经济学</td><td>线性代数</td><td>线性代数</td></tr>
+  <tr><td>15</td><td>计算机Python</td><td>计算机Python</td><td>微分方程</td></tr>
+  <tr><td>16</td><td>生物1</td><td>组织行为学</td><td>心理学</td></tr>
+  <tr><td>17</td><td>化学1</td><td>管理学原理</td><td>公共演讲</td></tr>
+  <tr><td>18</td><td>物理1</td><td>人文地理</td><td>微观经济学</td></tr>
+  <tr><td>19</td><td>商业导论</td><td>社会学</td><td>商业导论</td></tr>
+  <tr><td>20</td><td>线性代数</td><td>—</td><td>—</td></tr></table></section>
+
+  <section><h2>注册排课</h2>
+  <p>GCC灵活学校：夏≤7, 秋≤5, 冬≤1, 春≤5。可调整注册学期。</p>
+  <p>覆盖G9-G12全部高中课程。20门双学分全部注册在GCC。</p>
+  <p>入读要求：GPA 3.0+ / 单科B+ / EAP1（无需语言成绩升读）</p>
+  <p>升读要求：GPA 3.3+ / 写作B+ / 完成EAP</p>
+  <p class="note">大学写作2仅GCC提供，MU已不再提供。</p></section>
+</div>
+
+<!-- ==================== CAL LEAP DETAIL ==================== -->
+<div class="page" id="page-calLeap">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>ACCP 加州跃升计划 · 大三直通车</h2>
+  <p style="font-size:10px;color:var(--m);">来源：ACCP加州直升计划培训 0521 · 高本同修 · 3年完成→大三 · 5年vs常规7年 · 省150万+</p>
+  <table><tr><th>总费用</th><td>上海 ¥797,820 / 北京经济 ¥727,820 / 北京数学 ¥760,040</td><th>注册</th><td>SMC+GCC</td></tr>
+  <tr><th>进入年龄</th><td>9年级及以上，年满16岁</td><th>升学</th><td>大三（60+学分）</td></tr>
+  <tr><th>校区</th><td colspan="3">上海（仅经济）/ 北京（经济+数学）· <mark>南大暂不开设</mark></td></tr></table></section>
+
+  <section><h2>升学双路径</h2>
+  <table><tr><th></th><th>TAG协议通道（保底）</th><th>转学申请通道（冲刺）</th></tr>
+  <tr><td>机制</td><td>满足课程+学分+GPA，达标即录取</td><td>凭GPA+学术背景竞争申请</td></tr>
+  <tr><td>院校</td><td>UCD、UCSB、UCI、UCSC、UCM、UCR</td><td>Cornell、Columbia、Vanderbilt、UMich、Emory、UVA、UNC、USC、NYU、UIUC、UW-Madison、OSU、BU、Rutgers、UW-Seattle、Purdue</td></tr>
+  <tr><td>要求</td><td>各校不同（见下表）</td><td>GPA 3.3+ / 写作B+ / 完成EAP</td></tr></table></section>
+
+  <section><h2>固定课表 — 上海校区（经济专业）</h2>
+  <p style="font-size:10px;color:var(--m);">12门ACCP双学分 · 课程顺序根据每年实际情况微调</p>
+  <table><tr><th>学期</th><th>课程</th><th>学分</th></tr>
+  <tr><td><b>Term 1</b></td><td>大学写作1、微积分1、微观经济</td><td>11</td></tr>
+  <tr><td><b>Term 2</b></td><td>西方艺术史、微积分2、宏观经济、公共演讲</td><td>11</td></tr>
+  <tr><td><b>暑校</b></td><td>化学(含实验)、人类学实验、民族研究、社会概论、近代美国历史</td><td>17</td></tr>
+  <tr><td><b>Term 3</b></td><td>大学写作2、会计1、统计、线性代数</td><td>12</td></tr>
+  <tr><td><b>Term 4</b></td><td>会计2、大学写作2(续)、能力提升课程</td><td>12</td></tr></table>
+  <p class="note">另含：英语强化、体育、全球大师课、探究式学习(商务沟通与领导力/职业体验沙龙)、综合素养课。</p></section>
+
+  <section><h2>固定课表 — 北京校区（数学专业）</h2>
+  <p style="font-size:10px;color:var(--m);">13门ACCP双学分 · 北京校区另设10年级ACCP预备课程(6门 ¥138,600)</p>
+  <table><tr><th>学期</th><th>课程</th><th>学分</th></tr>
+  <tr><td><b>Term 1</b></td><td>大学写作1、微积分1、微观经济</td><td>11</td></tr>
+  <tr><td><b>Term 2</b></td><td>西方艺术史、微积分2、力学实验、民族研究</td><td>12</td></tr>
+  <tr><td><b>暑校</b></td><td>电磁学实验、公共演讲、社会学概论、近代美国历史、C语言</td><td>17</td></tr>
+  <tr><td><b>Term 3</b></td><td>大学写作2、多变量微积分、线性代数、生物人类学实验</td><td>12</td></tr>
+  <tr><td><b>Term 4</b></td><td>常微分方程、离散数学、能力提升课程</td><td>12</td></tr></table>
+  <p class="note">另含：英语强化、体育、全球大师课、探究式学习(商务沟通与领导力/职业体验沙龙)、综合素养课。</p></section>
+
+  <section><h2>SMC 规则</h2>
+  <p>SMC 最严格：仅秋/春，每学期≤4门。夏/冬不排。固定课程，需凑班。非加州GPA 3.3。</p>
+  <p>UC TAG 专业限制：UCI CS不接受TAG；UCSB CS需操作系统；UCD商科/CS不接受TAG。</p>
+  <p>默认含8所院校申请，超出名单内3,000元/所，名单外另加费。</p></section>
+
+  <section><h2>费用构成（总 ¥71.66~81.79万）</h2>
+  <table><tr><th>费用项</th><th>金额</th><th>说明</th></tr>
+  <tr><td>课程费</td><td>¥369,000 / ¥398,500</td><td>12门/13门</td></tr>
+  <tr><td>学分注册费</td><td>$4,800~$5,200（¥33,600~36,400）</td><td>$400×12~13门</td></tr>
+  <tr><td>暑校费</td><td>$26,250（¥184,000）</td><td>含境外课程注册费</td></tr>
+  <tr><td>校区管理费</td><td>¥130,000 / ¥200,000</td><td>两年合计</td></tr>
+  <tr><td>可选费用</td><td>¥18,200</td><td>—</td></tr>
+  <tr><td>美高注册费</td><td>$900（¥6,300）</td><td>学籍注册</td></tr>
+  <tr><td>毕业证费</td><td>$1,700（¥11,900）</td><td>美高毕业证</td></tr></table>
+  <p class="note">顾问佣金：国内12门¥369,000的30%，出境课程不返佣。校区：复旦¥10万/年（住宿¥2.4万）、北外¥6.5万/年（住宿¥3.8万）。</p></section>
+
+  <section><h2>TAG 升读要求（详细）</h2>
+  <table><tr><th>院校</th><th>整体GPA</th><th>热门专业特殊要求</th></tr>
+  <tr><td><b>UCD</b></td><td>3.2</td><td>工程学院 3.5 / 农业与生科学院 3.2 / 文理学院 3.2</td></tr>
+  <tr><td><b>UCI</b></td><td>3.4</td><td>统一要求</td></tr>
+  <tr><td><b>UCSB</b></td><td>3.4</td><td>统一要求</td></tr>
+  <tr><td><b>UCM</b></td><td>2.8-3.0</td><td>工程 3.0 / 自然科学 2.9 / 社科人文 2.8 / 心理 3.0 / 公卫 3.0</td></tr>
+  <tr><td><b>UCR</b></td><td>2.7-3.6</td><td>CS 3.6 / CS商业方向 3.3 / 计算机工程 3.3 / 机械工程 3.1 / 工程 3.0 / 数据科学 3.0 / 其他 2.7-2.8</td></tr>
+  <tr><td><b>UCSC</b></td><td>3.0</td><td>统一要求</td></tr></table>
+  <p class="note">以上为最低要求，各热门专业另有特定预备课程GPA要求和专业选修课要求。</p></section>
+</div>
+
+<!-- ==================== XHD JUNIOR ==================== -->
+<div class="page" id="page-xhdJunior">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>新航道 少年班 20门</h2>
+  <table><tr><th>价格</th><td>¥520,000</td><th>注册</th><td>GCC (杰纳西)</td></tr>
+  <tr><th>渠道</th><td colspan="3"><mark>仅限新航道</mark></td></tr>
+  <tr><th>年龄</th><td colspan="3">年满15岁</td></tr>
+  <tr><th>课程结构</th><td colspan="3">寒假/周末线上7门（或赴美暑校5门+线上2门）+ 线下校区/线上13门 = 20门</td></tr></table></section>
+
+  <section><h2>升读要求</h2>
+  <table><tr><th>等级</th><th>GPA</th><th>雅思</th><th>托福</th><th>院校</th></tr>
+  <tr><td><b>A类</b></td><td>3.8</td><td>7.0</td><td>100</td><td>Cornell, UCB, UCLA, Vanderbilt, UMich, UVA, USC, UNC, UCSD, NYU, UF, Toronto</td></tr>
+  <tr><td><b>B类</b></td><td>3.5</td><td>6.5</td><td>90</td><td>UT Austin, UIUC, UCI, UW, OSU, Rutgers, Purdue</td></tr>
+  <tr><td><b>C类</b></td><td>3.3</td><td>6.0</td><td>80</td><td>其他合作院校</td></tr></table></section>
+
+  <section><h2>与标准ACCP 20门对比</h2>
+  <table><tr><th></th><th>新航道少年班</th><th>标准 ACCP Plus 20门</th></tr>
+  <tr><td>价格</td><td>¥520,000</td><td>¥590,000</td></tr>
+  <tr><td>年龄</td><td>15岁+</td><td>16岁+</td></tr>
+  <tr><td>申请</td><td>XHD申请，非IPERC</td><td>IPERC申请</td></tr>
+  <tr><td>成绩单</td><td>GCC为主+MU为辅</td><td>GCC</td></tr>
+  <tr><td>双学分</td><td>✅</td><td>✅</td></tr>
+  <tr><td>语言要求</td><td>升读需要</td><td>无需语言升读</td></tr></table></section>
+</div>
+
+<!-- ==================== ACCP 10A DETAIL ==================== -->
+<div class="page" id="page-accp10a">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>ACCP 澳新直升 10门</h2>
+  <table><tr><th>价格</th><td>¥185,000 + $6,600第三方</td><th>注册</th><td>Davis(文商)/MU(理工)</td></tr>
+  <tr><th>年龄</th><td>17岁+，完成G11/高二</td><th>入读</th><td>GPA 2.5+，EAP2(雅思5.5)</td></tr>
+  <tr><th>升读A类</th><td colspan="3">人文GPA 3.0 / 商科理学GPA 3.3 / 工程GPA 3.5 · 写作B+</td></tr>
+  <tr><th>升读B类</th><td colspan="3">澳洲院校 GPA 2.8+</td></tr>
+  <tr><th>优势</th><td colspan="3">免预科保录QS前百 · 减免全部/部分大一 · 75%获奖学金AUD 5K-14K · 部分免语言</td></tr></table></section>
+
+  <section><h2>课程模型</h2>
+  <h3>非商科方向</h3>
+  <p>微积分1 · 微积分2 · 统计 · 心理学 · 大学写作 · 物理1 · 普通化学1 · 人文地理 · 生物1 · 化学2或计算机1 · 生物2</p>
+  <h3>商科方向</h3>
+  <p>微积分1 · 统计 · 经济学 · 大学写作 · 会计1 · 会计2 · 商业导论 · 管理学原理 · 组织行为学 · 市场营销</p></section>
+
+  <section><h2>升学数据</h2>
+  <table><tr><th>院校</th><th>QS</th><th>语言</th><th>免学分</th></tr>
+  <tr><td>新南威尔士</td><td>19</td><td>免(名额有限)</td><td>商科免大一</td></tr>
+  <tr><td>悉尼</td><td>28</td><td>建议6.5</td><td>—</td></tr>
+  <tr><td>莫纳什</td><td>31</td><td>建议提供</td><td>多可免</td></tr>
+  <tr><td>昆士兰</td><td>40</td><td>建议提供</td><td>少量免</td></tr>
+  <tr><td>奥克兰</td><td>67</td><td>免语言</td><td>—</td></tr></table></section>
+</div>
+
+<!-- ==================== ACCP 20A DETAIL ==================== -->
+<div class="page" id="page-accp20a">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>ACCP 澳新Plus 20门</h2>
+  <table><tr><th>价格</th><td>¥285,000 + $10,600第三方</td><th>注册</th><td>GCC (杰纳西)</td></tr>
+  <tr><th>分期</th><td>¥143,000/年</td><th>限时优惠</th><td>报名立减 ¥30,000</td></tr>
+  <tr><th>年龄</th><td>16岁+，完成G10/高一</td><th>入读</th><td>EAP1(雅思5.0)</td></tr>
+  <tr><th>升读</th><td colspan="3">GPA 3.3+ · 写作B+ · 文商方向</td></tr>
+  <tr><th>优势</th><td colspan="3">免标化免语言免预科免大一保录澳洲 · 2年完成4年学业 · 75%获奖学金AUD 5K-14K</td></tr>
+  <tr><th>备注</th><td colspan="3">其他专业也可申请，但仅免预科，不可免大一，不保证学分转入数量</td></tr></table></section>
+
+  <section><h2>20门课程（文商方向）</h2>
+  <p>微积分1 · 统计 · 微观经济 · 宏观经济 · 心理学 · 财务会计 · 管理会计概论 · 市场营销原理 · 组织行为学 · 商业导论 · 大学写作1 · 大学写作2 · 生物 · 公共演讲 · 人文地理 · 化学 · 社会学 · 西方艺术史2 · 商法1 · 商务计算基础</p></section>
+
+  <section><h2>升学数据</h2>
+  <table><tr><th>院校</th><th>QS</th><th>语言</th><th>免学分</th></tr>
+  <tr><td>悉尼</td><td>28</td><td>建议6.5</td><td>—</td></tr>
+  <tr><td>莫纳什</td><td>31</td><td>免语言</td><td>商科较多免半年</td></tr>
+  <tr><td>昆士兰</td><td>40</td><td>免语言</td><td>商科/科学较多免一年</td></tr>
+  <tr><td>西澳</td><td>77</td><td>免语言</td><td>—</td></tr>
+  <tr><td>UTS</td><td>87</td><td>免语言</td><td>商科较多免一年</td></tr></table></section>
+</div>
+
+<!-- ==================== XHD QIHANG ==================== -->
+<div class="page" id="page-xhdQihang">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>新航道 启航计划（ACCP北美直升）</h2>
+  <table><tr><th>渠道</th><td colspan="3"><mark>仅限新航道</mark></td></tr>
+  <tr><th>来源</th><td colspan="3">启航计划 ACCP北美直升项目协议 20260616</td></tr></table></section>
+
+  <section><h2>入读要求</h2>
+  <table><tr><th>等级</th><th>GPA</th><th>单科</th><th>EAP</th><th>备注</th></tr>
+  <tr><td>A类</td><td>3.0+</td><td>B+</td><td>EAP2</td><td>高中在读或已毕业</td></tr>
+  <tr><td>B类</td><td>2.5+</td><td>C+</td><td>EAP1可选</td><td>EAP1未达标需进线下中心</td></tr></table></section>
+
+  <section><h2>升读要求</h2>
+  <table><tr><th>等级</th><th>GPA</th><th>写作</th><th>EAP</th><th>语言</th></tr>
+  <tr><td>A类</td><td>3.3+</td><td>B+</td><td>完成</td><td>托福80/雅思6.5/多邻国120</td></tr>
+  <tr><td>B类</td><td>2.8+</td><td>B+</td><td>完成</td><td>无硬性要求</td></tr>
+  <tr><td>Plus A类</td><td>3.3+</td><td>B+</td><td>完成</td><td>—</td></tr>
+  <tr><td>Plus B类</td><td>2.8+</td><td>B+</td><td>完成</td><td>—</td></tr></table></section>
+
+  <section><h2>与标准 ACCP 关键差异</h2>
+  <table><tr><th></th><th>启航计划 (XHD)</th><th>标准 ACCP</th></tr>
+  <tr><td>A类入读</td><td>GPA 3.0</td><td>GPA 3.0</td></tr>
+  <tr><td>B类入读</td><td><mark>GPA 2.5</mark></td><td>GPA 3.0</td></tr>
+  <tr><td>A类升读</td><td>GPA 3.3</td><td>GPA 3.3</td></tr>
+  <tr><td>B类升读</td><td><mark>GPA 2.8</mark></td><td>GPA 3.3</td></tr>
+  <tr><td>语言降级</td><td>降B类+扩充3所</td><td>仅降B类</td></tr>
+  <tr><td>EAP1</td><td>必须线下中心</td><td>可线上</td></tr>
+  <tr><td>Plus升级</td><td>10+4门自动</td><td>单独产品</td></tr></table></section>
+</div>
+
+<!-- ==================== GCP DETAIL ==================== -->
+<div class="page" id="page-gcp">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>GCP 全球大学直通</h2>
+  <table><tr><th>总费用</th><td>¥52.2万</td><th>注册</th><td>MU+GCC</td></tr>
+  <tr><th>模式</th><td colspan="3">线下校区 + 必须参加美国暑校。可选GCC副学士。无美高学籍，单学分。不保录。</td></tr></table></section>
+  <section><h2>三条方向</h2>
+  <table><tr><th></th><th>经济方向 (20门)</th><th>非商科副学士 (23门)</th><th>澳洲商科副学士 (21门)</th></tr>
+  <tr><td>MU第一年</td><td>写作1/2、微观、生物、微积分1、人文地理、统计</td><td>同经济方向</td><td>同经济方向</td></tr>
+  <tr><td>GCC暑校</td><td>物理+Python + 化学lab+演讲+艺术史 + 美政府+美历史(录播)</td><td>同经济方向</td><td>市场营销+组织行为学 + 商业计算+演讲+艺术史 + 商法+商业原理(录播)</td></tr>
+  <tr><td>GCC第二年</td><td>心理、计算机、会计1/2、宏观、微积分2</td><td>同经济方向 + 社会学+社区健康+写作2重修</td><td>心理、计算机、会计1/2、宏观、微积分2 + 补物理1</td></tr></table></section>
+  <section><h2>暑校费用</h2>
+  <table><tr><th>学生类型</th><th>费用</th><th>包含</th></tr>
+  <tr><td>GCP学生</td><td>¥13.6万</td><td>3门课含学费/注册/保险/住宿/餐费/美国交通/签证服务（不含机票签证费）</td></tr>
+  <tr><td>ACCP学生</td><td>$1.5万</td><td>同上，学费已在项目费中</td></tr>
+  <tr><td>非ACCP</td><td>$2.2万（含20%佣金）</td><td>全含</td></tr></table></section>
+</div>
+
+<!-- ==================== LOWER SCHOOL ==================== -->
+<div class="page" id="page-lowerSchool">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>美国小学 & 初中课程（Lower School K-G8）</h2>
+  <p style="font-size:11px;color:var(--m);">来源：2.3.2 RGA Course Catalog - Lower School · <mark>仅1V1授课 · ¥38,800/门</mark> · 价格与美高1V1相同</p></section>
+
+  <section><h2>初中 (Middle School G6-G8)</h2>
+  <h3>英语 English / Language Arts</h3>
+  <table><tr><th>课程</th><th>年级</th><th>学期</th><th>课程代码</th><th>简介</th></tr>
+  <tr><td>语言艺术1 / M/J Language Arts 1</td><td>G6</td><td>Year</td><td>1001010 (Adv:1001020)</td><td>探索真实英雄，通过阅读写作思考成为自己英雄</td></tr>
+  <tr><td>语言艺术2 / M/J Language Arts 2</td><td>G7</td><td>Year</td><td>1001040 (Adv:1001050)</td><td>以神秘、怪物、混乱为主题，发现写作能力</td></tr>
+  <tr><td>语言艺术3 / M/J Language Arts 3</td><td>G8</td><td>Year</td><td>1001070 (Adv:1001080)</td><td>想象、创新、发明主题，成为批判性读者和思考者</td></tr></table>
+
+  <h3>数学 Mathematics</h3>
+  <table><tr><th>课程</th><th>年级</th><th>学期</th><th>课程代码</th><th>简介</th></tr>
+  <tr><td>数学 G6 / M/J Mathematics G6</td><td>G6</td><td>Year</td><td>1205010 (Acc:1205020)</td><td>通过游戏强化数学技能，真实场景中演示数字操作</td></tr>
+  <tr><td>数学 G7 / M/J Mathematics G7</td><td>G7</td><td>Year</td><td>1205040 (Acc:1205050)</td><td>动画、应用、视频、游戏和真实场景中学习数学</td></tr>
+  <tr><td>预备代数 / M/J Pre-Algebra</td><td>G8</td><td>Year</td><td>1205070</td><td>深入理解函数和方程组等高级概念</td></tr></table>
+
+  <h3>科学 Science</h3>
+  <table><tr><th>课程</th><th>年级</th><th>学期</th><th>课程代码</th><th>简介</th></tr>
+  <tr><td>综合科学1 / M/J Comprehensive Science 1</td><td>G6</td><td>Year</td><td>2002040 (Adv:2002050)</td><td>能量、力、天气、气候、地球系统、生物有机体</td></tr>
+  <tr><td>综合科学2 / M/J Comprehensive Science 2</td><td>G7</td><td>Year</td><td>2002070 (Adv:2002080)</td><td>能量、地球变化、地球历史、遗传、生物组织</td></tr>
+  <tr><td>综合科学3 / M/J Comprehensive Science 3</td><td>G8</td><td>Year</td><td>2002100 (Adv:2002110)</td><td>物质属性、能量流动、宇宙、地日月交互</td></tr></table>
+
+  <h3>社会 Social Studies</h3>
+  <table><tr><th>课程</th><th>推荐年级</th><th>学期</th><th>课程代码</th><th>简介</th></tr>
+  <tr><td>世界历史 / M/J World History</td><td>G6</td><td>Year</td><td>2109010 (Adv:2109020)</td><td>穿越时空发现世界历史——中国王朝、玛雅天文、印度医学</td></tr>
+  <tr><td>公民学 / M/J Civics</td><td>G7</td><td>Year</td><td>2106010 (Adv:2106020)</td><td>美国公民权利义务，联邦/州/地方政府结构与功能</td></tr>
+  <tr><td>美国历史 / M/J US History</td><td>G8</td><td>Year</td><td>2100010 (Adv:2100020)</td><td>历史充满冒险、多彩人物和复杂情节</td></tr></table>
+
+  <h3>CTE & 计算机 Career & Technical Education</h3>
+  <table><tr><th>课程</th><th>学期</th><th>课程代码</th><th>简介</th></tr>
+  <tr><td>商务键盘打字 / M/J Business Keyboarding</td><td>Semester</td><td>8200110</td><td>打字速度和正确技巧，商务技能</td></tr>
+  <tr><td>编程基础 / M/J Coding Fundamentals</td><td>Semester</td><td>9009200</td><td>HTML建网站 + Python编程解决问题</td></tr>
+  <tr><td>M/J Computer Science Discoveries 1 🆕</td><td>Semester</td><td>0200010</td><td>计算机科学入门，二进制，创新项目</td></tr></table>
+
+  <h3>选修 Electives</h3>
+  <table><tr><th>课程</th><th>学期</th><th>课程代码</th><th>简介</th></tr>
+  <tr><td>职业研究与决策 / M/J Career Research & Decision Making</td><td>Semester</td><td>1700060</td><td>自我评估、职业目标设定</td></tr>
+  <tr><td>综合体育 G6/7 / M/J Comprehensive PE G6/7</td><td>Semester</td><td>1508060</td><td>安全规则、运动技能、健康生活方式</td></tr>
+  <tr><td>综合体育 G7/8 / M/J Comprehensive PE G7/8</td><td>Semester</td><td>1508070</td><td>双人/团队/极限/户外运动概览</td></tr>
+  <tr><td>创意摄影1 / M/J Creative Photography 1</td><td>Year</td><td>0102040</td><td>基本相机技巧，拍摄动物/人物/风景</td></tr>
+  <tr><td>批判性思维与学习策略 / M/J Critical Thinking & Learning Strategies</td><td>Year</td><td>1700100</td><td>高效学习策略，目标优先级（推荐G7/G8）</td></tr>
+  <tr><td>音乐探索1 / M/J Exploring Music 1</td><td>Year</td><td>1301090</td><td>20-21世纪美国音乐核心元素</td></tr>
+  <tr><td>二维艺术探索 / M/J Exploring 2D Art</td><td>Semester</td><td>0101005</td><td>作为艺术家和艺术史家探索二维艺术</td></tr>
+  <tr><td>三维艺术探索 / M/J Exploring 3D Art</td><td>Semester</td><td>0101035</td><td>二维+三维艺术创作，批判性思考</td></tr>
+  <tr><td>健身 G6 / M/J Fitness G6</td><td>Semester</td><td>1508000</td><td>健康与健身主题，虚拟角色指导</td></tr>
+  <tr><td>吉他1 / M/J Guitar 1</td><td>Year</td><td>1301060</td><td>吉他入门到进阶，需自备六弦吉他+录视频</td></tr>
+  <tr><td>新闻学1 / M/J Journalism 1</td><td>Year</td><td>1006000</td><td>采访、写作、编辑，新闻历史与社会角色</td></tr>
+  <tr><td>同伴咨询1 / M/J Peer Counseling 1</td><td>Year</td><td>1400000</td><td>建立自信，利用同伴压力，创造友谊</td></tr>
+  <tr><td>研究课1 / M/J Research 1</td><td>Year</td><td>1700000</td><td>寓言与科学、科学变艺术、幽默教科学</td></tr>
+  <tr><td>研究课2 / M/J Research 2</td><td>Year</td><td>1700000</td><td>职业探索、文字力量、虚拟旅行</td></tr>
+  <tr><td>西班牙语初级 / M/J Spanish Beginning</td><td>Year</td><td>0708000</td><td>西班牙语入门，听说读写+文化</td></tr>
+  <tr><td>西班牙语中级 / M/J Spanish Intermediate</td><td>Year</td><td>0708010</td><td>语法词汇进阶，探索西语国家文化</td></tr>
+  <tr><td>演讲与辩论 / M/J Speech & Debate</td><td>Year</td><td>1007000</td><td>口头沟通，多种演讲格式，正式/非正式技巧</td></tr>
+  <tr><td>M/J Visual Art 1 🆕</td><td>Semester</td><td>0101100</td><td>素描、雕塑、绘画、摄影、混合媒体</td></tr>
+  <tr><td>M/J Visual Art 2 🆕</td><td>Semester</td><td>0101110</td><td>深化艺术技能，更多媒介和技巧实验</td></tr></table></section>
+
+  <section><h2>小学 (Elementary K-G5)</h2>
+  <table><tr><th>年级</th><th>英语<br><span style="font-size:8px;">Language Arts</span></th><th>数学<br><span style="font-size:8px;">Math</span></th><th>科学<br><span style="font-size:8px;">Science</span></th><th>社会<br><span style="font-size:8px;">Social Studies</span></th><th>艺术<br><span style="font-size:8px;">Art</span></th><th>计算机<br><span style="font-size:8px;">CS</span></th><th>体育<br><span style="font-size:8px;">PE</span></th></tr>
+  <tr><td><b>K</b></td><td>LA K</td><td>Math K</td><td>Sci K</td><td>SS K</td><td>Art K</td><td>CS K</td><td>PE K</td></tr>
+  <tr><td><b>G1</b></td><td>LA G1</td><td>Math G1</td><td>Sci G1</td><td>SS G1</td><td>Art G1</td><td>CS G1</td><td>PE G1</td></tr>
+  <tr><td><b>G2</b></td><td>LA G2</td><td>Math G2</td><td>Sci G2</td><td>SS G2</td><td>Art G2</td><td>CS G2</td><td>PE G2</td></tr>
+  <tr><td><b>G3</b></td><td>LA G3</td><td>Math G3</td><td>Sci G3</td><td>SS G3</td><td>Art G3</td><td>CS G3</td><td>PE G3</td></tr>
+  <tr><td><b>G4</b></td><td>LA G4</td><td>Math G4</td><td>Sci G4</td><td>SS G4</td><td>Art G4</td><td>CS G4</td><td>PE G4</td></tr>
+  <tr><td><b>G5</b></td><td>LA G5</td><td>Math G5</td><td>Sci G5</td><td>SS G5</td><td>Art G5</td><td>CS G5</td><td>PE G5</td></tr></table>
+  <p style="font-size:9px;color:var(--m);">全部为 Year Flex & Full Time · 有前置课程要求 · 年龄截止9月1日</p>
+  <p>Spanish: 初级 · Level 1 · Level 2 · Level 3 · Level 4 · Level 5（按水平非按年级，每级 Year Flex & Full Time, Code:5007020）</p></section>
+
+  <section><h2>小学课程介绍（节选）</h2>
+  <div class="info-card"><h4>Language Arts K</h4><p>和Penelope海盗学字母和发音，字母探险、游戏、画写表达、互动故事书、录音练习。年满5岁。</p><p style="font-size:9px;color:var(--m);">Code: 5010041 | 前置: 年满5岁 | Year</p></div>
+  <div class="info-card"><h4>Language Arts G3</h4><p>3…2…1…发射！学上下文线索、拼写、解码、草书。太空员主题，赢取少年航天员训练手册徽章。</p><p style="font-size:9px;color:var(--m);">Code: 5010044 | 前置: LA G2 | Year</p></div>
+  <div class="info-card"><h4>Math G4</h4><p>用等值分数破解Sye的密码，掌握乘法帮Amara找到黄金数学雕像，用小数帮Chloe和Demar在田径会上。</p><p style="font-size:9px;color:var(--m);">Code: 5012060 | 前置: Math G3 | Year</p></div>
+  <div class="info-card"><h4>Science G3</h4><p>动手学物理性质、运动能量、太阳系。跟天文学家Cozmo看星星，搭树屋，探索滑板科学。</p><p style="font-size:9px;color:var(--m);">Code: 5020040 | 前置: Sci G2 | Year</p></div>
+  <div class="info-card"><h4>Social Studies G2</h4><p>Great American Road Trip！访问Fort Knox学供需，去旧金山学贸易，戴Pilgrim帽游Plymouth。收集纪念品。</p><p style="font-size:9px;color:var(--m);">Code: 5021040 | 前置: SS G1 | Year</p></div>
+  <div class="info-card"><h4>Art G5</h4><p>Bridget Riley和Salvador Dalí如何用视错觉欺骗眼睛。绘画、陶艺、玻璃吹制、雕塑、平面设计职业介绍。</p><p style="font-size:9px;color:var(--m);">Code: 5001060 | 前置: Art G4 | Year</p></div>
+  <div class="info-card"><h4>Computer Science G4</h4><p>编程让猫从纽约跳到阿尔卑斯跳舞。学习防范网络欺凌，使用Word Online，研究人工智能。</p><p style="font-size:9px;color:var(--m);">Code: 5002020 | Year</p></div>
+  <div class="info-card"><h4>Spanish Level 4</h4><p>打包去阿根廷！和Mercedes和Armando体验文化传统。学动词变位和使用形容词。访问Patagonia和Iguazú瀑布。</p><p style="font-size:9px;color:var(--m);">Code: 5007020 | 前置: Level 3 | Year</p></div></section>
+
+  <section><h2>定价</h2>
+  <table><tr><th>课程类型</th><th>授课方式</th><th>价格</th><th>备注</th></tr>
+  <tr><td>全部 Lower School (K-G8)</td><td><mark>仅1V1</mark></td><td>¥38,800/门</td><td>与美高1V1同价</td></tr></table>
+  <p class="note">无班课、无录播。共计60+门课程。参考：课程/2.3.2 RGA Course Catalog - Lower School(1).pdf</p></section>
+</div>
+
+<!-- ==================== CHANNELS ==================== -->
+<div class="page" id="page-channels">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+
+  <section><h2>渠道合作 & 线下校区对照表</h2>
+  <p style="font-size:10px;color:var(--m);margin-bottom:10px;">来源：渠道合作及线下校区安排.xlsx · 过程性，待核对</p>
+
+  <table class="channels">
+  <thead><tr><th>机构</th><th>产品</th><th>线上</th><th>北外</th><th>南大</th><th>复旦</th><th>备注</th></tr></thead>
+  <tbody>
+  <tr class="group"><td rowspan="7"><b>通用</b><br><span style="font-size:9px;color:var(--m);">小机构 / 个代 / 朗阁</span></td><td>ACCP 北美 10门（含14门名单）</td><td><a href="https://docs.qq.com/slide/DSHZWeW15ak9ITXRF" target="_blank" class="dl" title="下载模板">📥</a></td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 北美 Plus 20门（经济/数统/计算机/生物）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 加州跃升（经济/数学）</td><td>❌</td><td>✅</td><td>❌</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 澳新 10门（文商/理工/7月/2月）</td><td><a href="https://docs.qq.com/slide/DSEp3TWR4YkFUUkxY" target="_blank" class="dl" title="下载模板">📥</a></td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 澳新Plus（商科排课，其他灵活处理）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 多国联申 10门</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>排课逻辑待定</td></tr>
+  <tr><td>RGA 美高</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td><td></td></tr>
+
+  <tr class="group"><td rowspan="4"><b>新航道</b></td><td>ACCP 北美 10+N门（＜14门）</td><td>✅</td><td>✅</td><td>✅</td><td>？</td><td>复旦未上线，学生要求可收</td></tr>
+  <tr><td>ACCP 北美 Plus 14-20门（经济/数统/计算机/生物）</td><td>✅</td><td>✅</td><td>✅</td><td>？</td><td></td></tr>
+  <tr><td>ACCP 加州跃升（经济/数学）</td><td>❌</td><td>✅</td><td>❌</td><td>？</td><td></td></tr>
+  <tr><td>少年班</td><td>✅</td><td>✅</td><td>✅</td><td>？</td><td></td></tr>
+
+  <tr class="group"><td rowspan="3"><b>新东方 XDF</b></td><td>护航双学分 美国方向 10+N门</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td><td>XDF 申请</td></tr>
+  <tr><td>护航双学分 加拿大方向 10+N门</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td><td></td></tr>
+  <tr><td>雷迪少年班</td><td>❌</td><td>✅</td><td>❌</td><td>❌</td><td>仅线下北外</td></tr>
+
+  <tr class="group"><td rowspan="2"><b>启德学府</b></td><td>EIC-ACCP 北美 10门</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td><td>线下版，仅线上</td></tr>
+  <tr><td>EIC-ACCP 北美 14门</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td><td></td></tr>
+
+  <tr class="group"><td rowspan="7"><b>学为贵</b></td><td>ACCP 北美 10门（含14门名单）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 北美 Plus 20门（经济/数统/计算机/生物）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 加州跃升（经济/数学）</td><td>❌</td><td>✅</td><td>❌</td><td>✅</td><td>可做方案，BD和杨洋打招呼</td></tr>
+  <tr><td>ACCP 澳新 10门（文商/理工/7月/2月）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 澳新Plus（商科排课，其他灵活处理）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>可销售，BD和总部打招呼</td></tr>
+  <tr><td>ACCP 多国联申 10门</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>RGA 美高</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td><td></td></tr>
+
+  <tr class="group"><td rowspan="7"><b>新通</b></td><td>ACCP 北美 10门（含14门名单）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 北美 Plus 20门（经济/数统/计算机/生物）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 加州跃升（经济/数学）</td><td>❌</td><td>✅</td><td>❌</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 澳新 10门（文商/理工/7月/2月）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 澳新Plus（商科排课，其他灵活处理）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 多国联申 10门</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>RGA 美高</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td><td></td></tr>
+
+  <tr class="group"><td rowspan="6"><b>金吉列</b></td><td>ACCP 北美 10门（含14门名单）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 北美 Plus 20门（经济/数统/计算机/生物）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 加州跃升（经济/数学）</td><td>❌</td><td>✅</td><td>❌</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 澳新 10门（文商/理工/7月/2月）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 澳新Plus（商科排课，其他灵活处理）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 多国联申 10门</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  </tbody></table>
+
+  <p style="font-size:10px;color:var(--m);margin-top:10px;">RGA 美高仅线上+北外。加州跃升仅线下（北外/复旦）。新东方仅线上。启德仅线上。</p></section>
+</div>
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Yali 知识库 · IPERC 全线业务手册</title>
+<style>
+:root{--p:#0d2137;--a:#d4942b;--bg:#f8f9fa;--card:#fff;--bdr:#ddd;--t:#222;--m:#666;--ok:#1a7a3a;--er:#b5343a;--info:#1a5c9a;--warn:#b8780a;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--t);line-height:1.7;}
+.sidebar{position:fixed;left:0;top:0;width:220px;height:100vh;background:var(--p);color:#fff;overflow-y:auto;padding:16px 0;z-index:10;}
+.sidebar h2{font-size:13px;padding:0 16px 10px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:6px;}
+.sidebar a{display:block;padding:5px 16px;font-size:10px;color:rgba(255,255,255,.7);text-decoration:none;transition:all .15s;cursor:pointer;}
+.sidebar a:hover,.sidebar a.active{color:#fff;background:rgba(255,255,255,.08);border-left:3px solid var(--a);}
+.main{margin-left:220px;padding:20px;max-width:940px;}
+.header{background:#fff;border-bottom:1px solid var(--bdr);padding:14px 20px;margin:-20px -20px 16px;position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;}
+.header h1{font-size:16px;color:var(--p);}.header input{padding:6px 12px;border:1.5px solid var(--bdr);border-radius:6px;font-size:11px;width:260px;}
+.header input:focus{outline:none;border-color:var(--a);}
+.page{display:none;}.page.active{display:block;}
+section{margin-bottom:16px;padding:18px;background:var(--card);border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.03);}
+section h2{font-size:14px;color:var(--p);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--a);}
+section h3{font-size:12px;color:var(--p);margin:10px 0 6px;}
+table{width:100%;border-collapse:collapse;font-size:10px;margin:6px 0;}
+th{background:#f5f3ee;padding:5px 7px;text-align:left;font-size:9px;text-transform:uppercase;color:var(--m);border-bottom:2px solid var(--bdr);}
+td{padding:4px 7px;border-bottom:1px solid #f0ede4;vertical-align:top;}
+tr:hover td{background:#fdfcf9;}
+.tag{display:inline-block;padding:1px 6px;border-radius:10px;font-size:8px;font-weight:600;}
+.tag.na{background:#e8f0fe;color:var(--info);}.tag.aus{background:#e6f7ed;color:var(--ok);}
+.tag.warn{background:#fef9e8;color:var(--warn);}.tag.err{background:#fef5f5;color:var(--er);}.tag.info{background:#e8f0fe;color:var(--info);}.tag.ddl{background:#f3e8ff;color:#7c3aed;}
+.btn-back{display:inline-block;padding:4px 12px;background:var(--p);color:#fff;border-radius:4px;font-size:10px;cursor:pointer;margin-bottom:10px;text-decoration:none;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;}
+.card{background:var(--card);border-radius:8px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,0.04);cursor:pointer;transition:all .15s;border-left:4px solid var(--info);}
+.card:hover{box-shadow:0 4px 12px rgba(0,0,0,0.08);transform:translateY(-1px);}
+.card.aus{border-left-color:var(--ok);}.card.leap{border-left-color:var(--a);}
+.card h3{font-size:13px;color:var(--p);margin-bottom:4px;}.card p{font-size:10px;color:var(--m);}
+.card .price{font-size:16px;font-weight:800;color:var(--a);margin:4px 0;}
+.card .meta{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px;}
+.faq-item{margin:6px 0;padding:8px 12px;background:#faf9f5;border-radius:6px;border-left:3px solid var(--a);}
+.faq-item .q{font-size:11px;font-weight:700;color:var(--p);}.faq-item .a{font-size:10px;color:var(--m);margin-top:3px;}
+.note{font-size:9px;color:var(--m);font-style:italic;margin-top:4px;}
+.info-card{background:#faf9f5;border:1px solid #e8e5db;border-radius:6px;padding:12px;margin:8px 0;}
+.info-card h4{font-size:11px;color:var(--p);margin-bottom:4px;}
+.info-card p{font-size:10px;color:var(--m);line-height:1.5;}
+mark{background:#fef3e0;padding:0 2px;}
+@media(max-width:768px){.sidebar{display:none;}.main{margin-left:0;}}
+</style>
+</head>
+<body>
+<div class="sidebar">
+  <h2>📚 Yali 知识库</h2>
+  <a onclick="showPage('home')" class="active">🏠 首页</a>
+  <a onclick="showPage('accp10n')">北美A类 10门</a>
+  <a onclick="showPage('accp14n')">北美A类升级 14门</a>
+  <a onclick="showPage('accp20n')">北美Plus 20门</a>
+  <a onclick="showPage('calLeap')">加州跃升</a>
+  <a onclick="showPage('xhdJunior')">新航道少年班</a>
+          <a onclick="showPage('xhdQihang')">新航道启航计划</a>
+  <a onclick="showPage('accp10a')">澳新 10门</a>
+  <a onclick="showPage('accp20a')">澳新Plus 20门</a>
+  <a onclick="showPage('gcp')">GCP</a>
+  <a onclick="showPage('channels')">🤝 渠道合作</a>
+          <a onclick="showPage('campus')">🏫 线下校区</a>
+  <a onclick="showPage('pricing')">💰 定价总表</a>
+  <a onclick="showPage('lowerSchool')">📚 小学&初中课程</a>
+  <a onclick="showPage('rgaCourses')">📗 RGA高中课程</a>
+          <a onclick="showPage('schools')">🏛️ 注册院校</a>
+  <a onclick="showPage('eap')">🗣️ EAP</a>
+  <a onclick="showPage('rga')">📊 RGA评估</a>
+  <a onclick="showPage('ops')">🔄 运营流程</a>
+  <a onclick="showPage('faq')">❓ FAQ</a>
+  <a onclick="showPage('links')">🔗 外部链接</a>
+  <a onclick="showPage('cases')">📂 学生案例</a>
+</div>
+
+<div class="main">
+<div class="header">
+  <h1><span id="pageTitle">IPERC 全线业务手册</span></h1>
+  <input id="search" placeholder="🔍 搜索..." oninput="search()">
+</div>
+
+<!-- ==================== HOME ==================== -->
+<div class="page active" id="page-home">
+  <h2 style="font-size:14px;margin-bottom:12px;">产品体系</h2>
+  <div class="grid">
+    <div class="card" onclick="showPage('accp10n')"><h3>ACCP 北美 A类 10门</h3><div class="price">¥310,000</div><p>免标化升读北美名校大二 · MU注册</p><div class="meta"><span class="tag na">北美</span><span class="tag info">MU</span><span class="tag ddl">DDL 提前10月</span></div></div>
+    <div class="card" onclick="showPage('accp14n')"><h3>ACCP 北美 A类升级 14门</h3><div class="price">¥428,000</div><p>更多课程覆盖 G11+G12 · MU注册</p><div class="meta"><span class="tag na">北美</span><span class="tag info">MU</span><span class="tag ddl">DDL 提前12月</span></div></div>
+    <div class="card" onclick="showPage('accp20n')"><h3>ACCP 北美 Plus 20门</h3><div class="price">¥590,000</div><p>直升大三 · 保录 · GCC注册</p><div class="meta"><span class="tag na">北美</span><span class="tag info">GCC</span><span class="tag warn">保录</span><span class="tag ddl">DDL 提前16月</span></div></div>
+    <div class="card" onclick="showPage('calLeap')"><h3>ACCP 加州跃升计划</h3><div class="price">¥71.66~81.79万</div><p>12线下+5夏校 · UC TAG保障 · SMC+GCC · 北外/复旦</p><div class="meta"><span class="tag na">北美</span><span class="tag info">SMC+GCC</span><span class="tag warn">TAG</span><span class="tag ddl">DDL 提前14月</span></div></div>
+    <div class="card" onclick="showPage('xhdJunior')"><h3>新航道 少年班 20门</h3><div class="price">¥520,000</div><p>年满15岁 · GCC · 寒假/周末线上+线下校区</p><div class="meta"><span class="tag na">北美</span><span class="tag info">GCC</span><span class="tag warn">新航道专供</span><span class="tag ddl">DDL 提前16月</span></div></div>
+    <div class="card aus" onclick="showPage('accp10a')"><h3>ACCP 澳新 10门</h3><div class="price">¥185,000</div><p>免预科升读澳新名校大一 · Davis/MU</p><div class="meta"><span class="tag aus">澳新</span><span class="tag info">Davis</span></div></div>
+    <div class="card aus" onclick="showPage('accp20a')"><h3>ACCP 澳新Plus 20门</h3><div class="price">¥285,000</div><p>文商方向 · GCC · 其他专业可申但仅免预科</p><div class="meta"><span class="tag aus">澳新</span><span class="tag info">GCC</span></div></div>
+    <div class="card" onclick="showPage('gcp')"><h3>GCP 全球大学直通</h3><div class="price">¥52.2万</div><p>线下校区+美国暑校 · 可选副学士 · 不保录</p><div class="meta"><span class="tag na">北美</span><span class="tag info">MU+GCC</span></div></div>
+  </div>
+
+  <h2 style="font-size:14px;margin:16px 0 10px;">快速入口</h2>
+  <div class="grid">
+    <div class="card" onclick="showPage('campus')" style="border-left-color:#1a7a3a;"><h3>🏫 线下校区</h3><p>南大 / 北外 / 复旦 详情对比</p></div>
+    <div class="card" onclick="showPage('pricing')" style="border-left-color:#d4942b;"><h3>💰 定价总表</h3><p>套餐+单报+渠道+第三方费用</p></div>
+    <div class="card" onclick="showPage('schools')" style="border-left-color:#1a5c9a;"><h3>🏛️ 注册院校</h3><p>MU/GCC/SMC/Davis 规则</p></div>
+    <div class="card" onclick="showPage('eap')" style="border-left-color:#b8780a;"><h3>🗣️ EAP 语言</h3><p>对标分数+课时+免试政策</p></div>
+    <div class="card" onclick="showPage('rga')" style="border-left-color:#b5343a;"><h3>📊 RGA 评估</h3><p>双标准+各体系门槛</p></div>
+    <div class="card" onclick="showPage('faq')" style="border-left-color:#6b3fa0;"><h3>❓ FAQ</h3><p>常见问题速查</p></div>
+  </div>
+</div>
+
+<!-- ==================== ACCP 10N DETAIL ==================== -->
+<div class="page" id="page-accp10n">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>ACCP 北美直升 A类 10门</h2>
+  <table><tr><th>价格</th><td>¥310,000</td><th>注册</th><td>MU (马凯特大学)</td></tr>
+  <tr><th>课程数</th><td>10门双学分</td><th>DDL</th><td>提前10个月</td></tr>
+  <tr><th>课时</th><td>600h</td><th>升读</th><td>北美名校大二</td></tr>
+  <tr><th>赠课</th><td colspan="3">赠4门RGA录播覆盖 G11+G12（哲学/健康/艺术史/环境科学）</td></tr></table></section>
+
+  <section><h2>课程列表（按方向）</h2>
+  <table><tr><th>#</th><th>人文/社科</th><th>商科</th><th>STEM</th></tr>
+  <tr><td>1</td><td>大学写作1</td><td>大学写作1</td><td>大学写作1</td></tr>
+  <tr><td>2</td><td>微积分1</td><td>微积分1</td><td>微积分1</td></tr>
+  <tr><td>3</td><td>统计学</td><td>微观经济学</td><td>微积分2</td></tr>
+  <tr><td>4</td><td>心理学</td><td>宏观经济学</td><td>物理1</td></tr>
+  <tr><td>5</td><td>美国历史</td><td>财务会计</td><td>计算机Python</td></tr>
+  <tr><td>6</td><td>美国政府</td><td>统计学</td><td>统计学</td></tr>
+  <tr><td>7</td><td>公共演讲</td><td>商业导论</td><td>化学1</td></tr>
+  <tr><td>8</td><td>人文地理</td><td>市场营销</td><td>生物1</td></tr>
+  <tr><td>9</td><td>大众传媒</td><td>公共演讲</td><td>心理学</td></tr>
+  <tr><td>10</td><td>社会学</td><td>心理学</td><td>公共演讲</td></tr></table></section>
+
+  <section><h2>注册排课</h2>
+  <p>MU严格学校：夏≤4, 秋≤5, 春≤5。排课=注册。</p>
+  <p>封闭申请：10门双学分 + 赠4门美高覆盖 G11+G12（4+2 G11, 8门 G12）</p>
+  <p>入读要求：GPA 3.0+ / 单科B+ / EAP2 / 托福61或雅思5.5</p>
+  <p>升读要求：GPA 3.3+ / 写作B+ / 雅思6.5或托福80</p></section>
+</div>
+
+<!-- ==================== ACCP 14N DETAIL ==================== -->
+<div class="page" id="page-accp14n">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>ACCP 北美 A类升级 14门</h2>
+  <table><tr><th>价格</th><td>¥428,000</td><th>注册</th><td>MU (马凯特大学)</td></tr>
+  <tr><th>课程数</th><td>14门双学分</td><th>DDL</th><td>提前12个月</td></tr>
+  <tr><th>课时</th><td>840h</td><th>升读</th><td>北美名校大二</td></tr>
+  <tr><th>赠课</th><td colspan="3">覆盖G11+G12（6门G11，8门G12）</td></tr></table></section>
+
+  <section><h2>课程列表</h2>
+  <table><tr><th>#</th><th>人文/社科</th><th>商科</th><th>STEM</th></tr>
+  <tr><td>1</td><td>大学写作1</td><td>大学写作1</td><td>大学写作1</td></tr>
+  <tr><td>2</td><td>微积分1</td><td>微积分1</td><td>微积分1</td></tr>
+  <tr><td>3</td><td>统计</td><td>微观经济学</td><td>微积分2</td></tr>
+  <tr><td>4</td><td>心理学</td><td>宏观经济学</td><td>物理1</td></tr>
+  <tr><td>5</td><td>美国历史</td><td>金融会计</td><td>物理2</td></tr>
+  <tr><td>6</td><td>美国政府</td><td>管理会计</td><td>计算机Python</td></tr>
+  <tr><td>7</td><td>公共演讲</td><td>统计</td><td>计算机Java</td></tr>
+  <tr><td>8</td><td>人文地理</td><td>商业导论</td><td>统计</td></tr>
+  <tr><td>9</td><td>大众传媒</td><td>市场营销</td><td>化学1</td></tr>
+  <tr><td>10</td><td>社会学</td><td>公共演讲</td><td>生物1</td></tr>
+  <tr><td>11</td><td>大学写作2</td><td>心理学</td><td>心理学</td></tr>
+  <tr><td>12</td><td>西方艺术史1</td><td>微积分2</td><td>公共演讲</td></tr>
+  <tr><td>13</td><td>微观经济学</td><td>大学写作2</td><td>大学写作2</td></tr>
+  <tr><td>14</td><td>计算机Python</td><td>计算机Python</td><td>线性代数</td></tr></table></section>
+
+  <section><h2>与10门对比</h2>
+  <p>多4门课：eng2 + 额外专业核心课。G10学生入读10门不够用时可升级14门。成绩优秀学生可将10门院校名单升级为14门名单（需BD确认）。</p></section>
+</div>
+
+<!-- ==================== ACCP 20N DETAIL ==================== -->
+<div class="page" id="page-accp20n">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>ACCP 北美 Plus 20门</h2>
+  <table><tr><th>价格</th><td>¥590,000</td><th>注册</th><td>GCC (杰纳西社区学院)</td></tr>
+  <tr><th>课程数</th><td>20门双学分</td><th>DDL</th><td>提前16个月</td></tr>
+  <tr><th>课时</th><td>1200h</td><th>升读</th><td>北美名校大三（保录）</td></tr>
+  <tr><th>赠课</th><td colspan="3">覆盖G9-G12全部高中课程，赠4门录播</td></tr></table></section>
+
+  <section><h2>课程列表</h2>
+  <table><tr><th>#</th><th>人文/社科</th><th>商科</th><th>STEM</th></tr>
+  <tr><td>1</td><td>大学写作1</td><td>大学写作1</td><td>大学写作1</td></tr>
+  <tr><td>2</td><td>大学写作2</td><td>大学写作2</td><td>大学写作2</td></tr>
+  <tr><td>3</td><td>微积分1</td><td>微积分1</td><td>微积分1</td></tr>
+  <tr><td>4</td><td>统计</td><td>微积分2</td><td>微积分2</td></tr>
+  <tr><td>5</td><td>心理学</td><td>微观经济学</td><td>微积分3</td></tr>
+  <tr><td>6</td><td>美国历史</td><td>宏观经济学</td><td>物理1</td></tr>
+  <tr><td>7</td><td>美国政府</td><td>金融会计</td><td>物理2</td></tr>
+  <tr><td>8</td><td>公共演讲</td><td>管理会计</td><td>计算机Python</td></tr>
+  <tr><td>9</td><td>人文地理</td><td>统计</td><td>计算机Java</td></tr>
+  <tr><td>10</td><td>大众传媒</td><td>商业导论</td><td>统计</td></tr>
+  <tr><td>11</td><td>社会学</td><td>市场营销</td><td>化学1</td></tr>
+  <tr><td>12</td><td>西方艺术史1</td><td>公共演讲</td><td>化学2</td></tr>
+  <tr><td>13</td><td>西方艺术史2</td><td>心理学</td><td>生物1</td></tr>
+  <tr><td>14</td><td>微观经济学</td><td>线性代数</td><td>线性代数</td></tr>
+  <tr><td>15</td><td>计算机Python</td><td>计算机Python</td><td>微分方程</td></tr>
+  <tr><td>16</td><td>生物1</td><td>组织行为学</td><td>心理学</td></tr>
+  <tr><td>17</td><td>化学1</td><td>管理学原理</td><td>公共演讲</td></tr>
+  <tr><td>18</td><td>物理1</td><td>人文地理</td><td>微观经济学</td></tr>
+  <tr><td>19</td><td>商业导论</td><td>社会学</td><td>商业导论</td></tr>
+  <tr><td>20</td><td>线性代数</td><td>—</td><td>—</td></tr></table></section>
+
+  <section><h2>注册排课</h2>
+  <p>GCC灵活学校：夏≤7, 秋≤5, 冬≤1, 春≤5。可调整注册学期。</p>
+  <p>覆盖G9-G12全部高中课程。20门双学分全部注册在GCC。</p>
+  <p>入读要求：GPA 3.0+ / 单科B+ / EAP1（无需语言成绩升读）</p>
+  <p>升读要求：GPA 3.3+ / 写作B+ / 完成EAP</p>
+  <p class="note">大学写作2仅GCC提供，MU已不再提供。</p></section>
+</div>
+
+<!-- ==================== CAL LEAP DETAIL ==================== -->
+<div class="page" id="page-calLeap">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>ACCP 加州跃升计划 · 大三直通车</h2>
+  <p style="font-size:10px;color:var(--m);">来源：ACCP加州直升计划培训 0521 · 高本同修 · 3年完成→大三 · 5年vs常规7年 · 省150万+</p>
+  <table><tr><th>总费用</th><td>上海 ¥797,820 / 北京经济 ¥727,820 / 北京数学 ¥760,040</td><th>注册</th><td>SMC+GCC</td></tr>
+  <tr><th>进入年龄</th><td>9年级及以上，年满16岁</td><th>升学</th><td>大三（60+学分）</td></tr>
+  <tr><th>校区</th><td colspan="3">上海（仅经济）/ 北京（经济+数学）· <mark>南大暂不开设</mark></td></tr></table></section>
+
+  <section><h2>升学双路径</h2>
+  <table><tr><th></th><th>TAG协议通道（保底）</th><th>转学申请通道（冲刺）</th></tr>
+  <tr><td>机制</td><td>满足课程+学分+GPA，达标即录取</td><td>凭GPA+学术背景竞争申请</td></tr>
+  <tr><td>院校</td><td>UCD、UCSB、UCI、UCSC、UCM、UCR</td><td>Cornell、Columbia、Vanderbilt、UMich、Emory、UVA、UNC、USC、NYU、UIUC、UW-Madison、OSU、BU、Rutgers、UW-Seattle、Purdue</td></tr>
+  <tr><td>要求</td><td>各校不同（见下表）</td><td>GPA 3.3+ / 写作B+ / 完成EAP</td></tr></table></section>
+
+  <section><h2>固定课表 — 上海校区（经济专业）</h2>
+  <p style="font-size:10px;color:var(--m);">12门ACCP双学分 · 课程顺序根据每年实际情况微调</p>
+  <table><tr><th>学期</th><th>课程</th><th>学分</th></tr>
+  <tr><td><b>Term 1</b></td><td>大学写作1、微积分1、微观经济</td><td>11</td></tr>
+  <tr><td><b>Term 2</b></td><td>西方艺术史、微积分2、宏观经济、公共演讲</td><td>11</td></tr>
+  <tr><td><b>暑校</b></td><td>化学(含实验)、人类学实验、民族研究、社会概论、近代美国历史</td><td>17</td></tr>
+  <tr><td><b>Term 3</b></td><td>大学写作2、会计1、统计、线性代数</td><td>12</td></tr>
+  <tr><td><b>Term 4</b></td><td>会计2、大学写作2(续)、能力提升课程</td><td>12</td></tr></table>
+  <p class="note">另含：英语强化、体育、全球大师课、探究式学习(商务沟通与领导力/职业体验沙龙)、综合素养课。</p></section>
+
+  <section><h2>固定课表 — 北京校区（数学专业）</h2>
+  <p style="font-size:10px;color:var(--m);">13门ACCP双学分 · 北京校区另设10年级ACCP预备课程(6门 ¥138,600)</p>
+  <table><tr><th>学期</th><th>课程</th><th>学分</th></tr>
+  <tr><td><b>Term 1</b></td><td>大学写作1、微积分1、微观经济</td><td>11</td></tr>
+  <tr><td><b>Term 2</b></td><td>西方艺术史、微积分2、力学实验、民族研究</td><td>12</td></tr>
+  <tr><td><b>暑校</b></td><td>电磁学实验、公共演讲、社会学概论、近代美国历史、C语言</td><td>17</td></tr>
+  <tr><td><b>Term 3</b></td><td>大学写作2、多变量微积分、线性代数、生物人类学实验</td><td>12</td></tr>
+  <tr><td><b>Term 4</b></td><td>常微分方程、离散数学、能力提升课程</td><td>12</td></tr></table>
+  <p class="note">另含：英语强化、体育、全球大师课、探究式学习(商务沟通与领导力/职业体验沙龙)、综合素养课。</p></section>
+
+  <section><h2>SMC 规则</h2>
+  <p>SMC 最严格：仅秋/春，每学期≤4门。夏/冬不排。固定课程，需凑班。非加州GPA 3.3。</p>
+  <p>UC TAG 专业限制：UCI CS不接受TAG；UCSB CS需操作系统；UCD商科/CS不接受TAG。</p>
+  <p>默认含8所院校申请，超出名单内3,000元/所，名单外另加费。</p></section>
+
+  <section><h2>费用构成（总 ¥71.66~81.79万）</h2>
+  <table><tr><th>费用项</th><th>金额</th><th>说明</th></tr>
+  <tr><td>课程费</td><td>¥369,000 / ¥398,500</td><td>12门/13门</td></tr>
+  <tr><td>学分注册费</td><td>$4,800~$5,200（¥33,600~36,400）</td><td>$400×12~13门</td></tr>
+  <tr><td>暑校费</td><td>$26,250（¥184,000）</td><td>含境外课程注册费</td></tr>
+  <tr><td>校区管理费</td><td>¥130,000 / ¥200,000</td><td>两年合计</td></tr>
+  <tr><td>可选费用</td><td>¥18,200</td><td>—</td></tr>
+  <tr><td>美高注册费</td><td>$900（¥6,300）</td><td>学籍注册</td></tr>
+  <tr><td>毕业证费</td><td>$1,700（¥11,900）</td><td>美高毕业证</td></tr></table>
+  <p class="note">顾问佣金：国内12门¥369,000的30%，出境课程不返佣。校区：复旦¥10万/年（住宿¥2.4万）、北外¥6.5万/年（住宿¥3.8万）。</p></section>
+
+  <section><h2>TAG 升读要求（详细）</h2>
+  <table><tr><th>院校</th><th>整体GPA</th><th>热门专业特殊要求</th></tr>
+  <tr><td><b>UCD</b></td><td>3.2</td><td>工程学院 3.5 / 农业与生科学院 3.2 / 文理学院 3.2</td></tr>
+  <tr><td><b>UCI</b></td><td>3.4</td><td>统一要求</td></tr>
+  <tr><td><b>UCSB</b></td><td>3.4</td><td>统一要求</td></tr>
+  <tr><td><b>UCM</b></td><td>2.8-3.0</td><td>工程 3.0 / 自然科学 2.9 / 社科人文 2.8 / 心理 3.0 / 公卫 3.0</td></tr>
+  <tr><td><b>UCR</b></td><td>2.7-3.6</td><td>CS 3.6 / CS商业方向 3.3 / 计算机工程 3.3 / 机械工程 3.1 / 工程 3.0 / 数据科学 3.0 / 其他 2.7-2.8</td></tr>
+  <tr><td><b>UCSC</b></td><td>3.0</td><td>统一要求</td></tr></table>
+  <p class="note">以上为最低要求，各热门专业另有特定预备课程GPA要求和专业选修课要求。</p></section>
+</div>
+
+<!-- ==================== XHD JUNIOR ==================== -->
+<div class="page" id="page-xhdJunior">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>新航道 少年班 20门</h2>
+  <table><tr><th>价格</th><td>¥520,000</td><th>注册</th><td>GCC (杰纳西)</td></tr>
+  <tr><th>渠道</th><td colspan="3"><mark>仅限新航道</mark></td></tr>
+  <tr><th>年龄</th><td colspan="3">年满15岁</td></tr>
+  <tr><th>课程结构</th><td colspan="3">寒假/周末线上7门（或赴美暑校5门+线上2门）+ 线下校区/线上13门 = 20门</td></tr></table></section>
+
+  <section><h2>升读要求</h2>
+  <table><tr><th>等级</th><th>GPA</th><th>雅思</th><th>托福</th><th>院校</th></tr>
+  <tr><td><b>A类</b></td><td>3.8</td><td>7.0</td><td>100</td><td>Cornell, UCB, UCLA, Vanderbilt, UMich, UVA, USC, UNC, UCSD, NYU, UF, Toronto</td></tr>
+  <tr><td><b>B类</b></td><td>3.5</td><td>6.5</td><td>90</td><td>UT Austin, UIUC, UCI, UW, OSU, Rutgers, Purdue</td></tr>
+  <tr><td><b>C类</b></td><td>3.3</td><td>6.0</td><td>80</td><td>其他合作院校</td></tr></table></section>
+
+  <section><h2>与标准ACCP 20门对比</h2>
+  <table><tr><th></th><th>新航道少年班</th><th>标准 ACCP Plus 20门</th></tr>
+  <tr><td>价格</td><td>¥520,000</td><td>¥590,000</td></tr>
+  <tr><td>年龄</td><td>15岁+</td><td>16岁+</td></tr>
+  <tr><td>申请</td><td>XHD申请，非IPERC</td><td>IPERC申请</td></tr>
+  <tr><td>成绩单</td><td>GCC为主+MU为辅</td><td>GCC</td></tr>
+  <tr><td>双学分</td><td>✅</td><td>✅</td></tr>
+  <tr><td>语言要求</td><td>升读需要</td><td>无需语言升读</td></tr></table></section>
+</div>
+
+<!-- ==================== ACCP 10A DETAIL ==================== -->
+<div class="page" id="page-accp10a">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>ACCP 澳新直升 10门</h2>
+  <table><tr><th>价格</th><td>¥185,000 + $6,600第三方</td><th>注册</th><td>Davis(文商)/MU(理工)</td></tr>
+  <tr><th>年龄</th><td>17岁+，完成G11/高二</td><th>入读</th><td>GPA 2.5+，EAP2(雅思5.5)</td></tr>
+  <tr><th>升读A类</th><td colspan="3">人文GPA 3.0 / 商科理学GPA 3.3 / 工程GPA 3.5 · 写作B+</td></tr>
+  <tr><th>升读B类</th><td colspan="3">澳洲院校 GPA 2.8+</td></tr>
+  <tr><th>优势</th><td colspan="3">免预科保录QS前百 · 减免全部/部分大一 · 75%获奖学金AUD 5K-14K · 部分免语言</td></tr></table></section>
+
+  <section><h2>课程模型</h2>
+  <h3>非商科方向</h3>
+  <p>微积分1 · 微积分2 · 统计 · 心理学 · 大学写作 · 物理1 · 普通化学1 · 人文地理 · 生物1 · 化学2或计算机1 · 生物2</p>
+  <h3>商科方向</h3>
+  <p>微积分1 · 统计 · 经济学 · 大学写作 · 会计1 · 会计2 · 商业导论 · 管理学原理 · 组织行为学 · 市场营销</p></section>
+
+  <section><h2>升学数据</h2>
+  <table><tr><th>院校</th><th>QS</th><th>语言</th><th>免学分</th></tr>
+  <tr><td>新南威尔士</td><td>19</td><td>免(名额有限)</td><td>商科免大一</td></tr>
+  <tr><td>悉尼</td><td>28</td><td>建议6.5</td><td>—</td></tr>
+  <tr><td>莫纳什</td><td>31</td><td>建议提供</td><td>多可免</td></tr>
+  <tr><td>昆士兰</td><td>40</td><td>建议提供</td><td>少量免</td></tr>
+  <tr><td>奥克兰</td><td>67</td><td>免语言</td><td>—</td></tr></table></section>
+</div>
+
+<!-- ==================== ACCP 20A DETAIL ==================== -->
+<div class="page" id="page-accp20a">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>ACCP 澳新Plus 20门</h2>
+  <table><tr><th>价格</th><td>¥285,000 + $10,600第三方</td><th>注册</th><td>GCC (杰纳西)</td></tr>
+  <tr><th>分期</th><td>¥143,000/年</td><th>限时优惠</th><td>报名立减 ¥30,000</td></tr>
+  <tr><th>年龄</th><td>16岁+，完成G10/高一</td><th>入读</th><td>EAP1(雅思5.0)</td></tr>
+  <tr><th>升读</th><td colspan="3">GPA 3.3+ · 写作B+ · 文商方向</td></tr>
+  <tr><th>优势</th><td colspan="3">免标化免语言免预科免大一保录澳洲 · 2年完成4年学业 · 75%获奖学金AUD 5K-14K</td></tr>
+  <tr><th>备注</th><td colspan="3">其他专业也可申请，但仅免预科，不可免大一，不保证学分转入数量</td></tr></table></section>
+
+  <section><h2>20门课程（文商方向）</h2>
+  <p>微积分1 · 统计 · 微观经济 · 宏观经济 · 心理学 · 财务会计 · 管理会计概论 · 市场营销原理 · 组织行为学 · 商业导论 · 大学写作1 · 大学写作2 · 生物 · 公共演讲 · 人文地理 · 化学 · 社会学 · 西方艺术史2 · 商法1 · 商务计算基础</p></section>
+
+  <section><h2>升学数据</h2>
+  <table><tr><th>院校</th><th>QS</th><th>语言</th><th>免学分</th></tr>
+  <tr><td>悉尼</td><td>28</td><td>建议6.5</td><td>—</td></tr>
+  <tr><td>莫纳什</td><td>31</td><td>免语言</td><td>商科较多免半年</td></tr>
+  <tr><td>昆士兰</td><td>40</td><td>免语言</td><td>商科/科学较多免一年</td></tr>
+  <tr><td>西澳</td><td>77</td><td>免语言</td><td>—</td></tr>
+  <tr><td>UTS</td><td>87</td><td>免语言</td><td>商科较多免一年</td></tr></table></section>
+</div>
+
+<!-- ==================== XHD QIHANG ==================== -->
+<div class="page" id="page-xhdQihang">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>新航道 启航计划（ACCP北美直升）</h2>
+  <table><tr><th>渠道</th><td colspan="3"><mark>仅限新航道</mark></td></tr>
+  <tr><th>来源</th><td colspan="3">启航计划 ACCP北美直升项目协议 20260616</td></tr></table></section>
+
+  <section><h2>入读要求</h2>
+  <table><tr><th>等级</th><th>GPA</th><th>单科</th><th>EAP</th><th>备注</th></tr>
+  <tr><td>A类</td><td>3.0+</td><td>B+</td><td>EAP2</td><td>高中在读或已毕业</td></tr>
+  <tr><td>B类</td><td>2.5+</td><td>C+</td><td>EAP1可选</td><td>EAP1未达标需进线下中心</td></tr></table></section>
+
+  <section><h2>升读要求</h2>
+  <table><tr><th>等级</th><th>GPA</th><th>写作</th><th>EAP</th><th>语言</th></tr>
+  <tr><td>A类</td><td>3.3+</td><td>B+</td><td>完成</td><td>托福80/雅思6.5/多邻国120</td></tr>
+  <tr><td>B类</td><td>2.8+</td><td>B+</td><td>完成</td><td>无硬性要求</td></tr>
+  <tr><td>Plus A类</td><td>3.3+</td><td>B+</td><td>完成</td><td>—</td></tr>
+  <tr><td>Plus B类</td><td>2.8+</td><td>B+</td><td>完成</td><td>—</td></tr></table></section>
+
+  <section><h2>与标准 ACCP 关键差异</h2>
+  <table><tr><th></th><th>启航计划 (XHD)</th><th>标准 ACCP</th></tr>
+  <tr><td>A类入读</td><td>GPA 3.0</td><td>GPA 3.0</td></tr>
+  <tr><td>B类入读</td><td><mark>GPA 2.5</mark></td><td>GPA 3.0</td></tr>
+  <tr><td>A类升读</td><td>GPA 3.3</td><td>GPA 3.3</td></tr>
+  <tr><td>B类升读</td><td><mark>GPA 2.8</mark></td><td>GPA 3.3</td></tr>
+  <tr><td>语言降级</td><td>降B类+扩充3所</td><td>仅降B类</td></tr>
+  <tr><td>EAP1</td><td>必须线下中心</td><td>可线上</td></tr>
+  <tr><td>Plus升级</td><td>10+4门自动</td><td>单独产品</td></tr></table></section>
+</div>
+
+<!-- ==================== GCP DETAIL ==================== -->
+<div class="page" id="page-gcp">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>GCP 全球大学直通</h2>
+  <table><tr><th>总费用</th><td>¥52.2万</td><th>注册</th><td>MU+GCC</td></tr>
+  <tr><th>模式</th><td colspan="3">线下校区 + 必须参加美国暑校。可选GCC副学士。无美高学籍，单学分。不保录。</td></tr></table></section>
+  <section><h2>三条方向</h2>
+  <table><tr><th></th><th>经济方向 (20门)</th><th>非商科副学士 (23门)</th><th>澳洲商科副学士 (21门)</th></tr>
+  <tr><td>MU第一年</td><td>写作1/2、微观、生物、微积分1、人文地理、统计</td><td>同经济方向</td><td>同经济方向</td></tr>
+  <tr><td>GCC暑校</td><td>物理+Python + 化学lab+演讲+艺术史 + 美政府+美历史(录播)</td><td>同经济方向</td><td>市场营销+组织行为学 + 商业计算+演讲+艺术史 + 商法+商业原理(录播)</td></tr>
+  <tr><td>GCC第二年</td><td>心理、计算机、会计1/2、宏观、微积分2</td><td>同经济方向 + 社会学+社区健康+写作2重修</td><td>心理、计算机、会计1/2、宏观、微积分2 + 补物理1</td></tr></table></section>
+  <section><h2>暑校费用</h2>
+  <table><tr><th>学生类型</th><th>费用</th><th>包含</th></tr>
+  <tr><td>GCP学生</td><td>¥13.6万</td><td>3门课含学费/注册/保险/住宿/餐费/美国交通/签证服务（不含机票签证费）</td></tr>
+  <tr><td>ACCP学生</td><td>$1.5万</td><td>同上，学费已在项目费中</td></tr>
+  <tr><td>非ACCP</td><td>$2.2万（含20%佣金）</td><td>全含</td></tr></table></section>
+</div>
+
+<!-- ==================== LOWER SCHOOL ==================== -->
+<div class="page" id="page-lowerSchool">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>美国小学 & 初中课程（Lower School K-G8）</h2>
+  <p style="font-size:11px;color:var(--m);">来源：2.3.2 RGA Course Catalog - Lower School · <mark>仅1V1授课 · ¥38,800/门</mark> · 价格与美高1V1相同</p></section>
+
+  <section><h2>初中 (Middle School G6-G8)</h2>
+  <h3>英语 English / Language Arts</h3>
+  <table><tr><th>课程</th><th>年级</th><th>学期</th><th>课程代码</th><th>简介</th></tr>
+  <tr><td>语言艺术1 / M/J Language Arts 1</td><td>G6</td><td>Year</td><td>1001010 (Adv:1001020)</td><td>探索真实英雄，通过阅读写作思考成为自己英雄</td></tr>
+  <tr><td>语言艺术2 / M/J Language Arts 2</td><td>G7</td><td>Year</td><td>1001040 (Adv:1001050)</td><td>以神秘、怪物、混乱为主题，发现写作能力</td></tr>
+  <tr><td>语言艺术3 / M/J Language Arts 3</td><td>G8</td><td>Year</td><td>1001070 (Adv:1001080)</td><td>想象、创新、发明主题，成为批判性读者和思考者</td></tr></table>
+
+  <h3>数学 Mathematics</h3>
+  <table><tr><th>课程</th><th>年级</th><th>学期</th><th>课程代码</th><th>简介</th></tr>
+  <tr><td>数学 G6 / M/J Mathematics G6</td><td>G6</td><td>Year</td><td>1205010 (Acc:1205020)</td><td>通过游戏强化数学技能，真实场景中演示数字操作</td></tr>
+  <tr><td>数学 G7 / M/J Mathematics G7</td><td>G7</td><td>Year</td><td>1205040 (Acc:1205050)</td><td>动画、应用、视频、游戏和真实场景中学习数学</td></tr>
+  <tr><td>预备代数 / M/J Pre-Algebra</td><td>G8</td><td>Year</td><td>1205070</td><td>深入理解函数和方程组等高级概念</td></tr></table>
+
+  <h3>科学 Science</h3>
+  <table><tr><th>课程</th><th>年级</th><th>学期</th><th>课程代码</th><th>简介</th></tr>
+  <tr><td>综合科学1 / M/J Comprehensive Science 1</td><td>G6</td><td>Year</td><td>2002040 (Adv:2002050)</td><td>能量、力、天气、气候、地球系统、生物有机体</td></tr>
+  <tr><td>综合科学2 / M/J Comprehensive Science 2</td><td>G7</td><td>Year</td><td>2002070 (Adv:2002080)</td><td>能量、地球变化、地球历史、遗传、生物组织</td></tr>
+  <tr><td>综合科学3 / M/J Comprehensive Science 3</td><td>G8</td><td>Year</td><td>2002100 (Adv:2002110)</td><td>物质属性、能量流动、宇宙、地日月交互</td></tr></table>
+
+  <h3>社会 Social Studies</h3>
+  <table><tr><th>课程</th><th>推荐年级</th><th>学期</th><th>课程代码</th><th>简介</th></tr>
+  <tr><td>世界历史 / M/J World History</td><td>G6</td><td>Year</td><td>2109010 (Adv:2109020)</td><td>穿越时空发现世界历史——中国王朝、玛雅天文、印度医学</td></tr>
+  <tr><td>公民学 / M/J Civics</td><td>G7</td><td>Year</td><td>2106010 (Adv:2106020)</td><td>美国公民权利义务，联邦/州/地方政府结构与功能</td></tr>
+  <tr><td>美国历史 / M/J US History</td><td>G8</td><td>Year</td><td>2100010 (Adv:2100020)</td><td>历史充满冒险、多彩人物和复杂情节</td></tr></table>
+
+  <h3>CTE & 计算机 Career & Technical Education</h3>
+  <table><tr><th>课程</th><th>学期</th><th>课程代码</th><th>简介</th></tr>
+  <tr><td>商务键盘打字 / M/J Business Keyboarding</td><td>Semester</td><td>8200110</td><td>打字速度和正确技巧，商务技能</td></tr>
+  <tr><td>编程基础 / M/J Coding Fundamentals</td><td>Semester</td><td>9009200</td><td>HTML建网站 + Python编程解决问题</td></tr>
+  <tr><td>M/J Computer Science Discoveries 1 🆕</td><td>Semester</td><td>0200010</td><td>计算机科学入门，二进制，创新项目</td></tr></table>
+
+  <h3>选修 Electives</h3>
+  <table><tr><th>课程</th><th>学期</th><th>课程代码</th><th>简介</th></tr>
+  <tr><td>职业研究与决策 / M/J Career Research & Decision Making</td><td>Semester</td><td>1700060</td><td>自我评估、职业目标设定</td></tr>
+  <tr><td>综合体育 G6/7 / M/J Comprehensive PE G6/7</td><td>Semester</td><td>1508060</td><td>安全规则、运动技能、健康生活方式</td></tr>
+  <tr><td>综合体育 G7/8 / M/J Comprehensive PE G7/8</td><td>Semester</td><td>1508070</td><td>双人/团队/极限/户外运动概览</td></tr>
+  <tr><td>创意摄影1 / M/J Creative Photography 1</td><td>Year</td><td>0102040</td><td>基本相机技巧，拍摄动物/人物/风景</td></tr>
+  <tr><td>批判性思维与学习策略 / M/J Critical Thinking & Learning Strategies</td><td>Year</td><td>1700100</td><td>高效学习策略，目标优先级（推荐G7/G8）</td></tr>
+  <tr><td>音乐探索1 / M/J Exploring Music 1</td><td>Year</td><td>1301090</td><td>20-21世纪美国音乐核心元素</td></tr>
+  <tr><td>二维艺术探索 / M/J Exploring 2D Art</td><td>Semester</td><td>0101005</td><td>作为艺术家和艺术史家探索二维艺术</td></tr>
+  <tr><td>三维艺术探索 / M/J Exploring 3D Art</td><td>Semester</td><td>0101035</td><td>二维+三维艺术创作，批判性思考</td></tr>
+  <tr><td>健身 G6 / M/J Fitness G6</td><td>Semester</td><td>1508000</td><td>健康与健身主题，虚拟角色指导</td></tr>
+  <tr><td>吉他1 / M/J Guitar 1</td><td>Year</td><td>1301060</td><td>吉他入门到进阶，需自备六弦吉他+录视频</td></tr>
+  <tr><td>新闻学1 / M/J Journalism 1</td><td>Year</td><td>1006000</td><td>采访、写作、编辑，新闻历史与社会角色</td></tr>
+  <tr><td>同伴咨询1 / M/J Peer Counseling 1</td><td>Year</td><td>1400000</td><td>建立自信，利用同伴压力，创造友谊</td></tr>
+  <tr><td>研究课1 / M/J Research 1</td><td>Year</td><td>1700000</td><td>寓言与科学、科学变艺术、幽默教科学</td></tr>
+  <tr><td>研究课2 / M/J Research 2</td><td>Year</td><td>1700000</td><td>职业探索、文字力量、虚拟旅行</td></tr>
+  <tr><td>西班牙语初级 / M/J Spanish Beginning</td><td>Year</td><td>0708000</td><td>西班牙语入门，听说读写+文化</td></tr>
+  <tr><td>西班牙语中级 / M/J Spanish Intermediate</td><td>Year</td><td>0708010</td><td>语法词汇进阶，探索西语国家文化</td></tr>
+  <tr><td>演讲与辩论 / M/J Speech & Debate</td><td>Year</td><td>1007000</td><td>口头沟通，多种演讲格式，正式/非正式技巧</td></tr>
+  <tr><td>M/J Visual Art 1 🆕</td><td>Semester</td><td>0101100</td><td>素描、雕塑、绘画、摄影、混合媒体</td></tr>
+  <tr><td>M/J Visual Art 2 🆕</td><td>Semester</td><td>0101110</td><td>深化艺术技能，更多媒介和技巧实验</td></tr></table></section>
+
+  <section><h2>小学 (Elementary K-G5)</h2>
+  <table><tr><th>年级</th><th>英语<br><span style="font-size:8px;">Language Arts</span></th><th>数学<br><span style="font-size:8px;">Math</span></th><th>科学<br><span style="font-size:8px;">Science</span></th><th>社会<br><span style="font-size:8px;">Social Studies</span></th><th>艺术<br><span style="font-size:8px;">Art</span></th><th>计算机<br><span style="font-size:8px;">CS</span></th><th>体育<br><span style="font-size:8px;">PE</span></th></tr>
+  <tr><td><b>K</b></td><td>LA K</td><td>Math K</td><td>Sci K</td><td>SS K</td><td>Art K</td><td>CS K</td><td>PE K</td></tr>
+  <tr><td><b>G1</b></td><td>LA G1</td><td>Math G1</td><td>Sci G1</td><td>SS G1</td><td>Art G1</td><td>CS G1</td><td>PE G1</td></tr>
+  <tr><td><b>G2</b></td><td>LA G2</td><td>Math G2</td><td>Sci G2</td><td>SS G2</td><td>Art G2</td><td>CS G2</td><td>PE G2</td></tr>
+  <tr><td><b>G3</b></td><td>LA G3</td><td>Math G3</td><td>Sci G3</td><td>SS G3</td><td>Art G3</td><td>CS G3</td><td>PE G3</td></tr>
+  <tr><td><b>G4</b></td><td>LA G4</td><td>Math G4</td><td>Sci G4</td><td>SS G4</td><td>Art G4</td><td>CS G4</td><td>PE G4</td></tr>
+  <tr><td><b>G5</b></td><td>LA G5</td><td>Math G5</td><td>Sci G5</td><td>SS G5</td><td>Art G5</td><td>CS G5</td><td>PE G5</td></tr></table>
+  <p style="font-size:9px;color:var(--m);">全部为 Year Flex & Full Time · 有前置课程要求 · 年龄截止9月1日</p>
+  <p>Spanish: 初级 · Level 1 · Level 2 · Level 3 · Level 4 · Level 5（按水平非按年级，每级 Year Flex & Full Time, Code:5007020）</p></section>
+
+  <section><h2>小学课程介绍（节选）</h2>
+  <div class="info-card"><h4>Language Arts K</h4><p>和Penelope海盗学字母和发音，字母探险、游戏、画写表达、互动故事书、录音练习。年满5岁。</p><p style="font-size:9px;color:var(--m);">Code: 5010041 | 前置: 年满5岁 | Year</p></div>
+  <div class="info-card"><h4>Language Arts G3</h4><p>3…2…1…发射！学上下文线索、拼写、解码、草书。太空员主题，赢取少年航天员训练手册徽章。</p><p style="font-size:9px;color:var(--m);">Code: 5010044 | 前置: LA G2 | Year</p></div>
+  <div class="info-card"><h4>Math G4</h4><p>用等值分数破解Sye的密码，掌握乘法帮Amara找到黄金数学雕像，用小数帮Chloe和Demar在田径会上。</p><p style="font-size:9px;color:var(--m);">Code: 5012060 | 前置: Math G3 | Year</p></div>
+  <div class="info-card"><h4>Science G3</h4><p>动手学物理性质、运动能量、太阳系。跟天文学家Cozmo看星星，搭树屋，探索滑板科学。</p><p style="font-size:9px;color:var(--m);">Code: 5020040 | 前置: Sci G2 | Year</p></div>
+  <div class="info-card"><h4>Social Studies G2</h4><p>Great American Road Trip！访问Fort Knox学供需，去旧金山学贸易，戴Pilgrim帽游Plymouth。收集纪念品。</p><p style="font-size:9px;color:var(--m);">Code: 5021040 | 前置: SS G1 | Year</p></div>
+  <div class="info-card"><h4>Art G5</h4><p>Bridget Riley和Salvador Dalí如何用视错觉欺骗眼睛。绘画、陶艺、玻璃吹制、雕塑、平面设计职业介绍。</p><p style="font-size:9px;color:var(--m);">Code: 5001060 | 前置: Art G4 | Year</p></div>
+  <div class="info-card"><h4>Computer Science G4</h4><p>编程让猫从纽约跳到阿尔卑斯跳舞。学习防范网络欺凌，使用Word Online，研究人工智能。</p><p style="font-size:9px;color:var(--m);">Code: 5002020 | Year</p></div>
+  <div class="info-card"><h4>Spanish Level 4</h4><p>打包去阿根廷！和Mercedes和Armando体验文化传统。学动词变位和使用形容词。访问Patagonia和Iguazú瀑布。</p><p style="font-size:9px;color:var(--m);">Code: 5007020 | 前置: Level 3 | Year</p></div></section>
+
+  <section><h2>定价</h2>
+  <table><tr><th>课程类型</th><th>授课方式</th><th>价格</th><th>备注</th></tr>
+  <tr><td>全部 Lower School (K-G8)</td><td><mark>仅1V1</mark></td><td>¥38,800/门</td><td>与美高1V1同价</td></tr></table>
+  <p class="note">无班课、无录播。共计60+门课程。参考：课程/2.3.2 RGA Course Catalog - Lower School(1).pdf</p></section>
+</div>
+
+<!-- ==================== CHANNELS ==================== -->
+<div class="page" id="page-channels">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+
+  <section><h2>渠道合作 & 线下校区对照表</h2>
+  <p style="font-size:10px;color:var(--m);margin-bottom:10px;">来源：渠道合作及线下校区安排.xlsx · 过程性，待核对</p>
+
+  <table class="channels">
+  <thead><tr><th>机构</th><th>产品</th><th>线上</th><th>北外</th><th>南大</th><th>复旦</th><th>备注</th></tr></thead>
+  <tbody>
+  <tr class="group"><td rowspan="7"><b>通用</b><br><span style="font-size:9px;color:var(--m);">小机构 / 个代 / 朗阁</span></td><td>ACCP 北美 10门（含14门名单）</td><td><a href="https://docs.qq.com/slide/DSHZWeW15ak9ITXRF" target="_blank" class="dl" title="下载模板">📥</a></td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 北美 Plus 20门（经济/数统/计算机/生物）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 加州跃升（经济/数学）</td><td>❌</td><td>✅</td><td>❌</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 澳新 10门（文商/理工/7月/2月）</td><td><a href="https://docs.qq.com/slide/DSEp3TWR4YkFUUkxY" target="_blank" class="dl" title="下载模板">📥</a></td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 澳新Plus（商科排课，其他灵活处理）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 多国联申 10门</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>排课逻辑待定</td></tr>
+  <tr><td>RGA 美高</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td><td></td></tr>
+
+  <tr class="group"><td rowspan="4"><b>新航道</b></td><td>ACCP 北美 10+N门（＜14门）</td><td>✅</td><td>✅</td><td>✅</td><td>？</td><td>复旦未上线，学生要求可收</td></tr>
+  <tr><td>ACCP 北美 Plus 14-20门（经济/数统/计算机/生物）</td><td>✅</td><td>✅</td><td>✅</td><td>？</td><td></td></tr>
+  <tr><td>ACCP 加州跃升（经济/数学）</td><td>❌</td><td>✅</td><td>❌</td><td>？</td><td></td></tr>
+  <tr><td>少年班</td><td>✅</td><td>✅</td><td>✅</td><td>？</td><td></td></tr>
+
+  <tr class="group"><td rowspan="3"><b>新东方 XDF</b></td><td>护航双学分 美国方向 10+N门</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td><td>XDF 申请</td></tr>
+  <tr><td>护航双学分 加拿大方向 10+N门</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td><td></td></tr>
+  <tr><td>雷迪少年班</td><td>❌</td><td>✅</td><td>❌</td><td>❌</td><td>仅线下北外</td></tr>
+
+  <tr class="group"><td rowspan="2"><b>启德学府</b></td><td>EIC-ACCP 北美 10门</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td><td>线下版，仅线上</td></tr>
+  <tr><td>EIC-ACCP 北美 14门</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td><td></td></tr>
+
+  <tr class="group"><td rowspan="7"><b>学为贵</b></td><td>ACCP 北美 10门（含14门名单）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 北美 Plus 20门（经济/数统/计算机/生物）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 加州跃升（经济/数学）</td><td>❌</td><td>✅</td><td>❌</td><td>✅</td><td>可做方案，BD和杨洋打招呼</td></tr>
+  <tr><td>ACCP 澳新 10门（文商/理工/7月/2月）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 澳新Plus（商科排课，其他灵活处理）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>可销售，BD和总部打招呼</td></tr>
+  <tr><td>ACCP 多国联申 10门</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>RGA 美高</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td><td></td></tr>
+
+  <tr class="group"><td rowspan="7"><b>新通</b></td><td>ACCP 北美 10门（含14门名单）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 北美 Plus 20门（经济/数统/计算机/生物）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 加州跃升（经济/数学）</td><td>❌</td><td>✅</td><td>❌</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 澳新 10门（文商/理工/7月/2月）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 澳新Plus（商科排课，其他灵活处理）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 多国联申 10门</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>RGA 美高</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td><td></td></tr>
+
+  <tr class="group"><td rowspan="6"><b>金吉列</b></td><td>ACCP 北美 10门（含14门名单）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 北美 Plus 20门（经济/数统/计算机/生物）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 加州跃升（经济/数学）</td><td>❌</td><td>✅</td><td>❌</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 澳新 10门（文商/理工/7月/2月）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 澳新Plus（商科排课，其他灵活处理）</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  <tr><td>ACCP 多国联申 10门</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td></td></tr>
+  </tbody></table>
+
+  <p style="font-size:10px;color:var(--m);margin-top:10px;">RGA 美高仅线上+北外。加州跃升仅线下（北外/复旦）。新东方仅线上。启德仅线上。</p></section>
+</div></div>
+
+<!-- ==================== SHARED PAGES ==================== -->
+<div class="page" id="page-campus">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>线下校区对比</h2>
+  <table><tr><th></th><th>南大</th><th>北外</th><th>复旦</th></tr>
+  <tr><td>年学费</td><td>¥68,000</td><td>¥65,000</td><td>¥100,000</td></tr>
+  <tr><td>住宿</td><td>已含</td><td>¥38,000/年</td><td>¥32,400/年</td></tr>
+  <tr><td>年龄</td><td>16+，高二在读</td><td>15-22岁</td><td>—</td></tr>
+  <tr><td>面试</td><td>南大老师（君页）+ 数学测试</td><td>我方+北外审录像（吴老师）</td><td>¥500测试费（张弛）</td></tr>
+  <tr><td>退费</td><td>不可退，单学期按年计</td><td>半年¥40,000（不可补差价）</td><td>不可退，按年计</td></tr>
+  <tr><td>加州跃升</td><td><span class="tag err">❌</span></td><td><span class="tag aus">✅</span></td><td><span class="tag aus">✅</span></td></tr>
+  <tr><td>管理</td><td>走班制</td><td>严格（8:30早自习+查寝）</td><td>3+2模式</td></tr>
+  <tr><td>限制</td><td>不招外籍</td><td>可招外籍</td><td>不提ACCP</td></tr></table></section>
+
+  <section><h2>南大课程</h2>
+  <p><b>26秋必修：</b>大学写作1、微观经济、预备微积分或微积分1</p>
+  <p><b>26秋选修（选4）：</b>公共演讲、心理学、会计1、计算机软件开发</p>
+  <p><b>27春必修：</b>大学写作2（暂定，大概率不开）、微积分1或微积分2</p>
+  <p><b>27春选修（选3）：</b>人文地理、宏观经济、会计2、大众传媒</p></section>
+
+  <section><h2>北外课程</h2>
+  <p><b>26秋新生：</b>大学写作1、预备微积分、微观经济</p>
+  <p><b>26秋老生：</b>大学写作2、微积分1、物理/生物、公众演讲</p>
+  <p><b>27春：</b>大学写作2、微积分1、物理/生物、公众演讲</p></section>
+
+  <section><h2>复旦课程（3+2模式）</h2>
+  <p><b>26秋通识：</b>大学写作1、微积分1、微观经济</p>
+  <p><b>26秋非美（澳新全上）：</b>商科导论、财务会计导论</p>
+  <p><b>27春通识：</b>统计、宏观经济</p>
+  <p><b>27春非美：</b>市场营销原理、商业组织管理、大学写作2(Davis)</p></section>
+</div>
+
+<div class="page" id="page-pricing">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>第三方费用</h2>
+  <table><tr><th>项目</th><th>金额</th><th>说明</th></tr>
+  <tr><td>高中学籍注册</td><td>$900</td><td>XDF $400</td></tr>
+  <tr><td>毕业证注册</td><td>$1,700</td><td>统一</td></tr>
+  <tr><td>大学学分注册</td><td>$400/门</td><td>按课程数</td></tr>
+  <tr><td>汇率</td><td>1:7</td><td></td></tr></table></section>
+  <section><h2>渠道差异化</h2>
+  <table><tr><th>渠道</th><th>差异</th></tr>
+  <tr><td><b>XDF</b></td><td>北美 ¥30,960/门，澳新 ¥18,500/门。学籍 $400</td></tr>
+  <tr><td><b>新通</b></td><td>美高1V1 ¥36,800，AP班课 ¥31,800</td></tr>
+  <tr><td><b>金吉列</b></td><td>仅大学学分，直播 ¥36,800/门（2门 ¥59,000），录播 ¥21,900/门</td></tr>
+  <tr><td><b>启德线下</b></td><td>7门固定+5门灵活，IPERC收30%佣金</td></tr></table></section>
+  <section><h2>加校费（学为贵价格单）</h2>
+  <table><tr><th>梯度</th><th>加1所</th><th>加2所</th><th>加3所+</th></tr>
+  <tr><td>美国 TOP30</td><td>¥10,000</td><td>¥8,000</td><td>¥6,000</td></tr>
+  <tr><td>美国非TOP30 & 加拿大</td><td>¥5,000</td><td>¥4,000</td><td>¥3,000</td></tr>
+  <tr><td>澳新院校</td><td>¥3,000/所</td><td>—</td><td>—</td></tr></table>
+  <h3>额外地区</h3>
+  <table><tr><th>地区</th><th>费用</th></tr>
+  <tr><td>马来西亚/英国/香港/爱尔兰（5选1免费）</td><td>超出1个地区 ¥10,000，超出院校 ¥1,000/所</td></tr>
+  <tr><td>日本/韩国/法国/德国/荷兰</td><td>¥10,000/地区，超出院校 ¥1,000/所</td></tr></table>
+  <p class="note">来源：IPERC/产品报价单/加校费.jpeg</p></section>
+</div>
+
+<div class="page" id="page-schools">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <p style="font-size:10px;color:var(--m);margin-bottom:10px;">来源：课程信息汇总.xlsx（25.11.21更新）</p>
+
+  <section><h2>注册院校规则</h2>
+  <table><tr><th>学校</th><th>夏</th><th>秋</th><th>冬</th><th>春</th><th>类型</th><th>Code</th></tr>
+  <tr><td><b>MU 马凯特</b></td><td>≤4</td><td>≤5</td><td>—</td><td>≤5</td><td>严格</td><td>001448</td></tr>
+  <tr><td><b>GCC 杰纳西</b></td><td>≤7</td><td>≤5</td><td>≤1</td><td>≤5</td><td>灵活</td><td>2272</td></tr>
+  <tr><td><b>SMC 圣莫尼卡</b></td><td>0</td><td>≤4</td><td>0</td><td>≤4</td><td>最严格</td><td>—</td></tr>
+  <tr><td><b>Davis 戴维斯</b></td><td>≤4</td><td>≤4</td><td>≤4</td><td>≤4</td><td>灵活</td><td>002155</td></tr></table></section>
+
+  <!-- ===== MU ===== -->
+  <section><h2>MU 马凯特大学 · 34门</h2>
+  <table><tr><th>类别</th><th>课程名称</th><th>课程代码</th><th>学分</th></tr>
+  <tr><td>英语</td><td>大学写作1 / Foundations in Rhetoric</td><td>ENGL 1001</td><td>3</td></tr>
+  <tr><td>英语</td><td>公共演讲 / Professional Public Speaking</td><td>COMM 1100</td><td>3</td></tr>
+  <tr><td>数学</td><td>预备微积分 / Precalculus</td><td>MATH 1200</td><td>3</td></tr>
+  <tr><td>数学</td><td>微积分1 / Calculus 1</td><td>MATH 1450</td><td>4</td></tr>
+  <tr><td>数学</td><td>积分 / Integral Calculus</td><td>MATH 1451</td><td>4</td></tr>
+  <tr><td>数学</td><td>微积分2 / Calculus 2</td><td>MATH 1455</td><td>4</td></tr>
+  <tr><td>数学</td><td>统计学 / Elementary Statistics</td><td>MATH 1700</td><td>3</td></tr>
+  <tr><td>科学</td><td>生物1 / General Biology 1</td><td>BIOL 1001</td><td>3</td></tr>
+  <tr><td>科学</td><td>生物2 / General Biology 2</td><td>BIOL 1002</td><td>3</td></tr>
+  <tr><td>科学</td><td>物理1 / General Physics 1</td><td>PHYS 1001</td><td>4</td></tr>
+  <tr><td>科学</td><td>物理2 / General Physics 2</td><td>PHYS 1002</td><td>4</td></tr>
+  <tr><td>科学</td><td>物理+微积分1 / Physics w/ Calculus 1</td><td>PHYS 1003</td><td>4</td></tr>
+  <tr><td>科学</td><td>物理+微积分2 / Physics w/ Calculus 2</td><td>PHYS 1004</td><td>4</td></tr>
+  <tr><td>计算机</td><td>计算机科学导论 / Intro to Computer Science</td><td>COSC 1000</td><td>3</td></tr>
+  <tr><td>计算机</td><td>Python / Intro to Software Development</td><td>COSC 1010</td><td>4</td></tr>
+  <tr><td>计算机</td><td>Java / Object-Oriented Software Design</td><td>COSC 1020</td><td>4</td></tr>
+  <tr><td>商科</td><td>微观经济学 / Principles of Microeconomics</td><td>ECON 1103</td><td>3</td></tr>
+  <tr><td>商科</td><td>宏观经济学 / Principles of Macroeconomics</td><td>ECON 1104</td><td>3</td></tr>
+  <tr><td>商科</td><td>金融会计 / Financial Accounting</td><td>ACCO 1030</td><td>3</td></tr>
+  <tr><td>商科</td><td>管理会计 / Managerial Accounting</td><td>ACCO 1031</td><td>3</td></tr>
+  <tr><td>社科</td><td>心理学 / General Psychology</td><td>PSYC 1001</td><td>3</td></tr>
+  <tr><td>社科</td><td>社会学 / Principles of Sociology</td><td>SOCI 1001</td><td>3</td></tr>
+  <tr><td>社科</td><td>美国历史1 / American Nation 1</td><td>HIST 1120</td><td>3</td></tr>
+  <tr><td>社科</td><td>美国历史2 / American Nation 2</td><td>HIST 1121</td><td>3</td></tr>
+  <tr><td>社科</td><td>美国政府 / American Politics</td><td>POSC 2201</td><td>3</td></tr>
+  <tr><td>社科</td><td>人文地理 / Human Geography</td><td>ANTH 2203</td><td>3</td></tr>
+  <tr><td>社科</td><td>社会传媒 / Media in Society</td><td>COMM 1200</td><td>3</td></tr>
+  <tr><td>艺术</td><td>西方艺术史1 / Art History 1</td><td>HIST 1201</td><td>3</td></tr>
+  <tr><td>艺术</td><td>西方艺术史2 / Art History 2</td><td>HIST 1202</td><td>3</td></tr>
+  <tr><td>艺术</td><td>绘图系统 / Systems of Drawing</td><td>FIAR 1000</td><td>3</td></tr>
+  <tr><td>艺术</td><td>视觉语言 / Visual Language</td><td>FIAR 1100</td><td>3</td></tr>
+  <tr><td>艺术</td><td>2D数字艺术 / Digital 2D Design</td><td>FIAR 1501</td><td>3</td></tr>
+  <tr><td>艺术</td><td>音乐鉴赏 / Music Appreciation</td><td>MUSI 2020</td><td>3</td></tr>
+  <tr><td>其他</td><td>传播学研究 / Communication Research</td><td>COMM 2500</td><td>3</td></tr>
+  <tr><td>其他</td><td>西方文明史 / Western Civilization since 1715</td><td>HIST 1002</td><td>3</td></tr></table>
+  <p class="note">写作2(ENGL 1002)已从MU移除，仅GCC提供。化学1/2(CHEM 1001/1002)已移除。</p></section>
+
+  <!-- ===== GCC ===== -->
+  <section><h2>GCC 杰纳西社区学院 · 38门</h2>
+  <table><tr><th>类别</th><th>课程名称</th><th>课程代码</th><th>学分</th></tr>
+  <tr><td>英语</td><td>大学写作1 / College Composition</td><td>ENG 101</td><td>3</td></tr>
+  <tr><td>英语</td><td>大学写作2 / Composition in Natural & Social Sciences</td><td>ENG 102</td><td>3</td></tr>
+  <tr><td>数学</td><td>代数2 / Algebra II</td><td>MAT 102</td><td>3</td></tr>
+  <tr><td>数学</td><td>预备微积分 / Precalculus</td><td>MAT 140</td><td>4</td></tr>
+  <tr><td>数学</td><td>微积分1 / Calculus 1</td><td>MAT 141</td><td>4</td></tr>
+  <tr><td>数学</td><td>微积分2 / Calculus 2</td><td>MAT 142</td><td>4</td></tr>
+  <tr><td>数学</td><td>微积分3 / Calculus 3</td><td>MAT 245</td><td>4</td></tr>
+  <tr><td>数学</td><td>线性代数 / Linear Algebra</td><td>MAT 246</td><td>4</td></tr>
+  <tr><td>数学</td><td>离散数学 / Discrete Math</td><td>MAT 247</td><td>3</td></tr>
+  <tr><td>数学</td><td>统计学 / Statistics</td><td>MAT 129</td><td>3</td></tr>
+  <tr><td>数学</td><td>微分方程 / Differential Equations</td><td>MAT 255</td><td>4</td></tr>
+  <tr><td>科学</td><td>物理1 / College Physics 1</td><td>PHY 121</td><td>4</td></tr>
+  <tr><td>科学</td><td>物理2 / College Physics 2</td><td>PHY 122</td><td>4</td></tr>
+  <tr><td>科学</td><td>物理+微积分1 / Physics w/ Calculus 1</td><td>PHY 131</td><td>4</td></tr>
+  <tr><td>科学</td><td>物理+微积分2 / Physics w/ Calculus 2</td><td>PHY 132</td><td>4</td></tr>
+  <tr><td>科学</td><td>化学1 / General Chemistry 1</td><td>CHE 103</td><td>3</td></tr>
+  <tr><td>科学</td><td>化学1实验 / Chemistry 1 Lab</td><td>CHE 103L</td><td>1</td></tr>
+  <tr><td>科学</td><td>生物1 / General Biology 1</td><td>BIO 125</td><td>3</td></tr>
+  <tr><td>科学</td><td>生物1实验 / Biology 1 Lab</td><td>BIO 125L</td><td>1</td></tr>
+  <tr><td>科学</td><td>生物原理 / Principles of Biology</td><td>BIO 100</td><td>3</td></tr>
+  <tr><td>科学</td><td>人类生物学 / Human Biology</td><td>BIO 102</td><td>3</td></tr>
+  <tr><td>计算机</td><td>计算机编程2 / Computer Programming II</td><td>CIS 221</td><td>4</td></tr>
+  <tr><td>计算机</td><td>商务计算基础 / Business Computing</td><td>CIS 117</td><td>3</td></tr>
+  <tr><td>商科</td><td>宏观经济学 / Macroeconomics</td><td>ECO 105</td><td>3</td></tr>
+  <tr><td>商科</td><td>商业原理 / Principles of Business</td><td>BUS 101</td><td>3</td></tr>
+  <tr><td>商科</td><td>市场营销 / Principles of Marketing</td><td>BUS 213</td><td>3</td></tr>
+  <tr><td>商科</td><td>管理会计 / Intro to Managerial Accounting</td><td>ACC 102</td><td>3</td></tr>
+  <tr><td>社科</td><td>心理学 / Intro to Psychology</td><td>PSY 104</td><td>3</td></tr>
+  <tr><td>社科</td><td>社会学 / Introductory Sociology</td><td>SOC 101</td><td>3</td></tr>
+  <tr><td>社科</td><td>美国政府 / American Government</td><td>POS 101</td><td>3</td></tr>
+  <tr><td>社科</td><td>人文地理 / Human Geography</td><td>GEO 102</td><td>3</td></tr>
+  <tr><td>社科</td><td>美国历史2 / US History 2: 1865 to Present</td><td>HIS 204</td><td>3</td></tr>
+  <tr><td>艺术</td><td>西方艺术史1 / Western Art History I</td><td>ART 103</td><td>3</td></tr>
+  <tr><td>艺术</td><td>音乐理论 / Intro to Music Theory</td><td>MUS 102</td><td>3</td></tr>
+  <tr><td>其他</td><td>公共演讲 / Public Speaking</td><td>SPE 108</td><td>3</td></tr>
+  <tr><td>其他</td><td>人际沟通 / Interpersonal Communication</td><td>SPE 109</td><td>3</td></tr>
+  <tr><td>其他</td><td>文学导论 / Intro to Literature</td><td>LIT 201</td><td>3</td></tr>
+  <tr><td>其他</td><td>哲学导论 / Intro to Philosophy</td><td>PHI 101</td><td>3</td></tr>
+  <tr><td>其他</td><td>逻辑学 / Logic</td><td>PHI 102</td><td>3</td></tr></table></section>
+
+  <!-- ===== Davis ===== -->
+  <section><h2>Davis 戴维斯大学 · 27门</h2>
+  <table><tr><th>类别</th><th>课程名称</th><th>课程代码</th><th>学分</th></tr>
+  <tr><td>英语</td><td>大学写作1 / Composition I</td><td>COM 121</td><td>5</td></tr>
+  <tr><td>英语</td><td>大学写作2 / Composition II</td><td>COM 122</td><td>5</td></tr>
+  <tr><td>数学</td><td>微积分1 / Analytic Geometry & Calculus I</td><td>MAC 231</td><td>5</td></tr>
+  <tr><td>数学</td><td>统计学 / Statistics</td><td>MGT 230</td><td>4</td></tr>
+  <tr><td>科学</td><td>生物1+实验 / Principles of Biology I w/Lab</td><td>BIO 1240</td><td>6</td></tr>
+  <tr><td>科学</td><td>生物2 / General Biology 2</td><td>BIO 1002</td><td>5</td></tr>
+  <tr><td>科学</td><td>化学1+实验 / General Chemistry I w/Lab</td><td>CHM 1110</td><td>6</td></tr>
+  <tr><td>科学</td><td>物理1+实验 / General Physics I w/Lab</td><td>PHYS 1001</td><td>6</td></tr>
+  <tr><td>科学</td><td>有机化学1 / Organic Chemistry I</td><td>CHM 260</td><td>6</td></tr>
+  <tr><td>科学</td><td>有机化学2 / Organic Chemistry II</td><td>CHM 265</td><td>6</td></tr>
+  <tr><td>计算机</td><td>计算机 / Principles of Computer Programming</td><td>CDP 100</td><td>5</td></tr>
+  <tr><td>商科</td><td>经济学 / Economics</td><td>SSC 201</td><td>4</td></tr>
+  <tr><td>商科</td><td>微观经济学 / Principles of Microeconomics</td><td>SSC 301</td><td>4</td></tr>
+  <tr><td>商科</td><td>宏观经济学 / Principles of Macroeconomics</td><td>SSC 302</td><td>4</td></tr>
+  <tr><td>商科</td><td>金融会计 / Accounting Principles I</td><td>ACC 101</td><td>4</td></tr>
+  <tr><td>社科</td><td>心理学 / Intro to Psychology</td><td>SSC 213</td><td>4</td></tr>
+  <tr><td>社科</td><td>美国政府 / U.S. Federal Government</td><td>POL 204</td><td>5</td></tr>
+  <tr><td>社科</td><td>美国历史1 / US History to 1865</td><td>HIST 1600</td><td>5</td></tr>
+  <tr><td>社科</td><td>美国历史2 / US History Since 1865</td><td>HIST 1610</td><td>5</td></tr>
+  <tr><td>艺术</td><td>西方艺术史 / History of Western Art</td><td>ARTH 1010</td><td>4</td></tr>
+  <tr><td>艺术</td><td>绘图系统 / Systems of Drawing</td><td>FIAR 1000</td><td>5</td></tr>
+  <tr><td>其他</td><td>公共演讲 / Oral Communication</td><td>COM 201</td><td>4</td></tr>
+  <tr><td>其他</td><td>人际沟通/社会传媒 / Interpersonal Comm</td><td>COM 202</td><td>4</td></tr>
+  <tr><td>其他</td><td>视觉语言 / Visual Language</td><td>FIAR 1100</td><td>5</td></tr>
+  <tr><td>其他</td><td>人文地理 / Human Geography（未入Catalog）</td><td>ANTH 2203</td><td>4</td></tr>
+  <tr><td>其他</td><td>世界历史1 / Modern World to 1500</td><td>HIST 1001</td><td>—</td></tr>
+  <tr><td>其他</td><td>世界历史2 / Modern World Since 1500</td><td>HIST 1002</td><td>—</td></tr></table>
+  <p class="note">标注"固定"的课程为澳新方向必修
+<!-- ==================== RGA ==================== -->
+</div>
+
+<div class="page" id="page-rgaCourses">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <p style="font-size:10px;color:var(--m);margin-bottom:10px;">来源：课程信息汇总.xlsx RGA-US / RGA-CA · Ready Global Academy School Code: 360109</p>
+
+  <section><h2>英语 English</h2>
+  <table><tr><th>级别</th><th>课程名称</th><th>课程代码</th><th>学分</th><th>年级</th></tr>
+  <tr><td>Standard</td><td>英语9 / English 9: Literature & Composition I</td><td>EN101</td><td>1</td><td>9-10</td></tr>
+  <tr><td>Honors</td><td>英语9 荣誉 / English 9 Honors</td><td>EN101H</td><td>1</td><td>9-10</td></tr>
+  <tr><td>Standard</td><td>美国文学与写作 / American Literature and Composition</td><td>EN201</td><td>1</td><td>10-12</td></tr>
+  <tr><td>Honors</td><td>美国文学与写作 荣誉 / Hon American Literature</td><td>EN201H</td><td>1</td><td>10-12</td></tr>
+  <tr><td>Standard</td><td>创意写作 / Creative Writing</td><td>EN202</td><td>0.5</td><td>10-12</td></tr>
+  <tr><td>Standard</td><td>英语10 / English 10: Literature & Composition II</td><td>EN203</td><td>1</td><td>10-11</td></tr>
+  <tr><td>Honors</td><td>英语10 荣誉 / English 10 Honors</td><td>EN203H</td><td>1</td><td>10-11</td></tr>
+  <tr><td>Standard</td><td>英语11 / English 11: Global Perspectives in Literature</td><td>EN301</td><td>1</td><td>11-12</td></tr>
+  <tr><td>Standard</td><td>短篇小说 / The Short Story</td><td>EN302</td><td>0.5</td><td>11-12</td></tr>
+  <tr><td>Standard</td><td>英语12 / English 12: Modern World Literature</td><td>EN401</td><td>1</td><td>11-12</td></tr>
+  <tr><td>Honors</td><td>英语12 荣誉 / English 12 Honors</td><td>EN401H</td><td>1</td><td>11-12</td></tr>
+  <tr><td>Honors</td><td>大学写作 荣誉 / Hon College Writing</td><td>EN402H</td><td>1</td><td>12</td></tr>
+  <tr><td>AP</td><td>AP语言与写作 / A.P. Language & Composition</td><td>EN501</td><td>1</td><td>11-12</td></tr>
+  <tr><td>AP</td><td>AP文学与写作 / A.P. Literature & Composition</td><td>EN502</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>大学写作1 / CCP Composition I → MU ENGL 1001</td><td>EN601</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>大学写作2 / CCP Composition II → MU ENGL 1002</td><td>EN602</td><td>1</td><td>11-12</td></tr>
+  <tr><td>Standard</td><td>公共演讲 / Public Speaking</td><td>EN204E</td><td>0.5</td><td>10-12</td></tr>
+  <tr><td>Standard</td><td>学习策略 / Learning Strategies 1</td><td>EN205E</td><td>1</td><td>10-12</td></tr>
+  <tr><td>双学分</td><td>公共演讲 / CCP Public Speaking → MU COMM 1100</td><td>EN603E</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>社会传媒 / CCP Media in Society → MU COMM 1200</td><td>EN604E</td><td>1</td><td>11-12</td></tr></table>
+  </section></section>
+
+  <section><h2>数学 Mathematics</h2>
+  <table><tr><th>级别</th><th>课程名称</th><th>课程代码</th><th>学分</th><th>年级</th></tr>
+  <tr><td>Standard</td><td>代数1 / Algebra I</td><td>MA101</td><td>1</td><td>9</td></tr>
+  <tr><td>Honors</td><td>荣誉代数1 / Hon Algebra I</td><td>MA101H</td><td>1</td><td>9</td></tr>
+  <tr><td>Standard</td><td>几何 / Geometry</td><td>MA201</td><td>1</td><td>9-10</td></tr>
+  <tr><td>Honors</td><td>荣誉几何 / Hon Geometry</td><td>MA201H</td><td>1</td><td>9-10</td></tr>
+  <tr><td>Standard</td><td>概率与统计 / Probability and Statistics</td><td>MA202E</td><td>0.5</td><td>10-12</td></tr>
+  <tr><td>Standard</td><td>问题解决 / Problem Solving</td><td>MA203E</td><td>0.5</td><td>10-12</td></tr>
+  <tr><td>Standard</td><td>代数2 / Algebra II</td><td>MA301</td><td>1</td><td>9-12</td></tr>
+  <tr><td>Standard</td><td>三角函数 / Algebra II/Trigonometry</td><td>MA302</td><td>1</td><td>10-12</td></tr>
+  <tr><td>Honors</td><td>荣誉代数2 / Hon Algebra II/Trigonometry</td><td>MA302H</td><td>1</td><td>10-12</td></tr>
+  <tr><td>Honors</td><td>预备微积分 / Hon Precalculus</td><td>MA401H</td><td>1</td><td>11-12</td></tr>
+  <tr><td>Honors</td><td>微积分 / Hon Calculus</td><td>MA404H</td><td>1</td><td>11-12</td></tr>
+  <tr><td>Honors</td><td>离散数学 / Hon Discrete Mathematics</td><td>MA402H</td><td>1</td><td>12</td></tr>
+  <tr><td>Honors</td><td>多元微积分 / Hon Multivariable Calculus</td><td>MA403H</td><td>1</td><td>12</td></tr>
+  <tr><td>AP</td><td>AP微积分AB / A.P. Calculus AB → MU MATH 1450</td><td>MA501</td><td>1</td><td>11-12</td></tr>
+  <tr><td>AP</td><td>AP微积分BC / A.P. Calculus BC</td><td>MA502</td><td>1</td><td>11-12</td></tr>
+  <tr><td>AP</td><td>AP统计 / A.P. Statistics → MU MATH 1700</td><td>MA503</td><td>1</td><td>11-12</td></tr>
+  <tr><td>AP</td><td>AP预备微积分 / A.P. Precalculus</td><td>MA504</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>预备微积分 / CCP Precalculus → MU MATH 1200</td><td>MA605</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>微积分1 / CCP Calculus 1 → MU MATH 1450</td><td>MA601</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>微积分2 / CCP Calculus 2 → MU MATH 1455</td><td>MA603</td><td>1</td><td>12</td></tr>
+  <tr><td>双学分</td><td>积分 / CCP Integral Calculus</td><td>MA604</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>统计 / CCP Elementary Statistics → MU MATH 1700</td><td>MA602</td><td>1</td><td>12</td></tr></table></section>
+
+  <section><h2>科学 Science</h2>
+  <table><tr><th>级别</th><th>课程名称</th><th>课程代码</th><th>学分</th><th>年级</th></tr>
+  <tr><td>Standard</td><td>科学基础 / Physical Science</td><td>SC101</td><td>1</td><td>9</td></tr>
+  <tr><td>Standard</td><td>生物 / Biology</td><td>SC201</td><td>1</td><td>9-10</td></tr>
+  <tr><td>Honors</td><td>荣誉生物 / Hon Biology</td><td>SC201H</td><td>1</td><td>9-10</td></tr>
+  <tr><td>Standard</td><td>化学 / Chemistry</td><td>SC301</td><td>1</td><td>10-11</td></tr>
+  <tr><td>Honors</td><td>荣誉化学 / Hon Chemistry</td><td>SC301H</td><td>1</td><td>10-11</td></tr>
+  <tr><td>Standard</td><td>物理 / Physics</td><td>SC401</td><td>1</td><td>11-12</td></tr>
+  <tr><td>Honors</td><td>荣誉物理 / Hon Physics</td><td>SC402</td><td>1</td><td>11-12</td></tr>
+  <tr><td>Standard</td><td>生物技术 / Biotechnology</td><td>SC202E</td><td>0.5</td><td>10-11</td></tr>
+  <tr><td>Standard</td><td>生物伦理 / Bioethics</td><td>SC203E</td><td>0.5</td><td>11-12</td></tr>
+  <tr><td>Standard</td><td>地球科学实验 / Earth Science Lab</td><td>SC204E</td><td>1</td><td>10-11</td></tr>
+  <tr><td>Standard</td><td>环境科学 / Environmental Science</td><td>SC205E</td><td>1</td><td>10-11</td></tr>
+  <tr><td>Standard</td><td>人体解剖与生理I / Human Anatomy & Physiology I</td><td>SC206E</td><td>0.5</td><td>10-11</td></tr>
+  <tr><td>Standard</td><td>人体解剖与生理II / Human Anatomy & Physiology II</td><td>SC207E</td><td>0.5</td><td>10-11</td></tr>
+  <tr><td>Standard</td><td>工程学 / Engineering</td><td>SC208E</td><td>1</td><td>10-11</td></tr>
+  <tr><td>AP</td><td>AP生物 / A.P. Biology</td><td>SC501</td><td>1</td><td>11-12</td></tr>
+  <tr><td>AP</td><td>AP化学 / A.P. Chemistry</td><td>SC502</td><td>1</td><td>11-12</td></tr>
+  <tr><td>AP</td><td>AP环境科学 / A.P. Environmental Science</td><td>SC503</td><td>1</td><td>11-12</td></tr>
+  <tr><td>AP</td><td>AP物理1 / A.P. Physics 1</td><td>SC504</td><td>1</td><td>11-12</td></tr>
+  <tr><td>AP</td><td>AP物理C力学 / A.P. Physics C: Mechanics</td><td>SC505</td><td>1</td><td>11-12</td></tr>
+  <tr><td>AP</td><td>AP物理2 / A.P. Physics 2</td><td>SC506</td><td>1</td><td>11-12</td></tr>
+  <tr><td>AP</td><td>AP物理C电磁学 / A.P. Physics C: E&M</td><td>SC507</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>化学1 / CCP General Chemistry 1 → MU CHEM 1001</td><td>SC601</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>化学2 / CCP General Chemistry 2</td><td>SC607</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>物理1 / CCP General Physics 1 → MU PHYS 1001</td><td>SC602</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>物理2 / CCP General Physics 2</td><td>SC609</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>生物1 / CCP Principles of Biology 1 → MU BIOL 1001</td><td>SC603</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>生物2 / CCP General Biology 2</td><td>SC608</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>天文与空间物理 / CCP Astronomy and Space Physics</td><td>SC604</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>物理+微积分1 / CCP Physics w/ Intro Calculus I</td><td>SC605</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>物理+微积分2 / CCP Physics w/ Intro Calculus II</td><td>SC606</td><td>1</td><td>11-12</td></tr></table></section>
+
+  <section><h2>社会科学 Social Studies</h2>
+  <table><tr><th>级别</th><th>课程名称</th><th>课程代码</th><th>学分</th><th>年级</th></tr>
+  <tr><td>Standard</td><td>世界议题/政治 / World Issues</td><td>SS101</td><td>1</td><td>9-12</td></tr>
+  <tr><td>Standard</td><td>哲学 / Introduction to Philosophy</td><td>SS103E</td><td>1</td><td>9-12</td></tr>
+  <tr><td>Standard</td><td>美国历史 / U.S. History</td><td>SS201</td><td>1</td><td>10-12</td></tr>
+  <tr><td>Honors</td><td>荣誉美国历史 / Hon U.S. History</td><td>SS201H</td><td>1</td><td>10-12</td></tr>
+  <tr><td>Standard</td><td>世界历史 / World History</td><td>SS301</td><td>1</td><td>9-12</td></tr>
+  <tr><td>Standard</td><td>美国政府与宏观经济 / Government & Macroeconomics</td><td>SS401</td><td>1</td><td>11-12</td></tr>
+  <tr><td>Standard</td><td>地理 / Geography</td><td>SS102E</td><td>1</td><td>9-12</td></tr>
+  <tr><td>Standard</td><td>非裔美国人历史 / African American History</td><td>SS202E</td><td>0.5</td><td>10-12</td></tr>
+  <tr><td>Standard</td><td>刑事司法 / Criminal Justice</td><td>SS203E</td><td>0.5</td><td>10-12</td></tr>
+  <tr><td>Standard</td><td>微观经济 / Microeconomics</td><td>SS204E</td><td>1</td><td>10-12</td></tr>
+  <tr><td>Standard</td><td>心理学 / Psychology</td><td>SS205E</td><td>1</td><td>10-12</td></tr>
+  <tr><td>Standard</td><td>人权史 / History of Human Rights</td><td>SS302E</td><td>0.5</td><td>11-12</td></tr>
+  <tr><td>Standard</td><td>人类学/心理学/社会学导论 / Intro to Anthropology, Psychology & Sociology</td><td>SS303E</td><td>1</td><td>11-12</td></tr>
+  <tr><td>AP</td><td>AP政府政治与经济 / A.P. Government, Politics and Economics</td><td>SS501</td><td>1</td><td>11-12</td></tr>
+  <tr><td>AP</td><td>AP人文地理 / A.P. Human Geography</td><td>SS502</td><td>1</td><td>11-12</td></tr>
+  <tr><td>AP</td><td>AP宏观经济学 / A.P. Macroeconomics</td><td>SS503</td><td>1</td><td>10-12</td></tr>
+  <tr><td>AP</td><td>AP微观经济学 / A.P. Microeconomics</td><td>SS504</td><td>1</td><td>10-12</td></tr>
+  <tr><td>AP</td><td>AP心理学 / A.P. Psychology</td><td>SS505</td><td>1</td><td>10-12</td></tr>
+  <tr><td>AP</td><td>AP美国历史 / A.P. US History</td><td>SS506</td><td>1</td><td>11-12</td></tr>
+  <tr><td>AP</td><td>AP世界历史 / A.P. World History</td><td>SS507</td><td>1</td><td>9-10</td></tr>
+  <tr><td>AP</td><td>AP比较政府与政治 / A.P. Comparative Government</td><td>SS508</td><td>1</td><td>11-12</td></tr>
+  <tr><td>AP</td><td>AP欧洲史 / A.P. European History</td><td>SS509</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>美国历史 / CCP US History → MU HIST 1121</td><td>SS601</td><td>1</td><td>10-12</td></tr>
+  <tr><td>双学分</td><td>美国政府 / CCP US Government → MU POSC 2201</td><td>SS602</td><td>1</td><td>10-12</td></tr>
+  <tr><td>双学分</td><td>心理学 / CCP Psychology → MU PSYC 1001</td><td>SS603</td><td>1</td><td>10-12</td></tr>
+  <tr><td>双学分</td><td>人文地理 / CCP Human Geography → MU ANTH 2203</td><td>SS604</td><td>1</td><td>10-12</td></tr>
+  <tr><td>双学分</td><td>社会学 / CCP Intro to Sociology → MU SOCI 1001</td><td>SS605</td><td>1</td><td>10-12</td></tr></table></section>
+
+  <section><h2>商科 Business</h2>
+  <table><tr><th>级别</th><th>课程名称</th><th>课程代码</th><th>学分</th><th>年级</th></tr>
+  <tr><td>Standard</td><td>财务素养 / Financial Literacy</td><td>BU101</td><td>0.5</td><td>9-12</td></tr>
+  <tr><td>Standard</td><td>商业原理与策略 / Business Prin & Stra</td><td>BU201E</td><td>0.5</td><td>10-12</td></tr>
+  <tr><td>Standard</td><td>金融与投资 / Finance & Investing</td><td>BU202E</td><td>0.5</td><td>10-12</td></tr>
+  <tr><td>Standard</td><td>市场营销 / Marketing</td><td>BU203E</td><td>0.5</td><td>10-12</td></tr>
+  <tr><td>Standard</td><td>市场营销专题 / Topics in Marketing</td><td>BU204E</td><td>0.5</td><td>10-12</td></tr>
+  <tr><td>Standard</td><td>商务导论 / Introduction to Business</td><td>BUS205E</td><td>1</td><td>10-12</td></tr>
+  <tr><td>Standard</td><td>创业与领导企业 / Launching and Leading A Business</td><td>BU206E</td><td>1</td><td>10-12</td></tr>
+  <tr><td>Standard</td><td>会计1 / Accounting I</td><td>BU301E</td><td>1</td><td>11-12</td></tr>
+  <tr><td>Standard</td><td>会计2 / Accounting II</td><td>BU302E</td><td>1</td><td>11-12</td></tr>
+  <tr><td>Standard</td><td>国际商务 / International Business</td><td>BU401E</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>微观经济 / CCP Microeconomics → MU ECON 1103</td><td>BU601E</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>宏观经济 / CCP Macroeconomics → MU ECON 1104</td><td>BU602E</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>经济 / CCP Economics → Davis SSC 201</td><td>BU606E</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>会计1 / CCP Financial Accounting → MU ACCO 1030</td><td>BU603E</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>会计2 / CCP Managerial Accounting → MU ACCO 1031</td><td>BU604E</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>商务导论 / CCP Introduction to Business</td><td>BU605E</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>商务沟通 / CCP Business Communications</td><td>BU606E</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>市场营销原理 / CCP Marketing Principles → GCC BUS 213</td><td>BU607E</td><td>1</td><td>11-12</td></tr></table></section>
+
+  <section><h2>计算机 Computer</h2>
+  <table><tr><th>级别</th><th>课程名称</th><th>课程代码</th><th>学分</th><th>年级</th></tr>
+  <tr><td>Standard</td><td>交互媒体基础 / Fundamentals of Interactive Media</td><td>CS101E</td><td>0.5</td><td>9-12</td></tr>
+  <tr><td>Standard</td><td>计算机编程导论 / Intro to Computer Programming</td><td>CS102E</td><td>1</td><td>9-12</td></tr>
+  <tr><td>AP</td><td>AP计算机科学A / A.P. Computer Science A</td><td>CS501E</td><td>1</td><td>11-12</td></tr>
+  <tr><td>AP</td><td>AP计算机科学原理 / A.P. Computer Science Principles</td><td>CS502E</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>计算机科学导论 / CCP Intro to CS → MU COSC 1000</td><td>CS601E</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>Python / CCP Software Development → MU COSC 1010</td><td>CS602E</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>Java / CCP Object-Oriented Design → MU COSC 1020</td><td>CS603E</td><td>1</td><td>11-12</td></tr></table></section>
+
+  <section><h2>健康与体育 Health & PE</h2>
+  <table><tr><th>级别</th><th>课程名称</th><th>课程代码</th><th>学分</th><th>年级</th></tr>
+  <tr><td>Standard</td><td>健康 / Health</td><td>PE101</td><td>1</td><td>9-12</td></tr>
+  <tr><td>Standard</td><td>体育 / Physical Education</td><td>PE102</td><td>0.5</td><td>9-12</td></tr>
+  <tr><td>Standard</td><td>终身健身 / Fitness for Life</td><td>PE103</td><td>0.5</td><td>9-12</td></tr></table></section>
+
+  <section><h2>艺术 Art（双学分）</h2>
+  <table><tr><th>级别</th><th>课程名称</th><th>课程代码</th><th>学分</th><th>年级</th></tr>
+  <tr><td>双学分</td><td>西方艺术史1 / CCP Western Art History I → MU HIST 1201</td><td>AR610</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>西方艺术史2 / CCP Western Art History II → MU HIST 1202</td><td>AR601</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>绘图系统 / CCP Systems of Drawing → MU FIAR 1000</td><td>AR608</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>视觉语言 / CCP Visual Language → MU FIAR 1100</td><td>AR609</td><td>1</td><td>11-12</td></tr>
+  <tr><td>双学分</td><td>2D数字艺术 / CCP 2D Design → MU FIAR 1501</td><td>AR603</td><td>1</td><td>11-12</td></tr></table></section>
+</div>
+
+<div class="page" id="page-eap">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>EAP 语言对标</h2>
+  <table><tr><th>级别</th><th>雅思</th><th>托福</th><th>多邻国</th><th>课时</th></tr>
+  <tr><td>EAP 1</td><td>5.0</td><td>50-60</td><td>80-89</td><td><b>40h班课</b></td></tr>
+  <tr><td>EAP 2</td><td>5.5</td><td>61-70</td><td>90-99</td><td>20h</td></tr>
+  <tr><td>EAP 3</td><td>6.0</td><td>71-80</td><td>100-109</td><td>20h</td></tr></table>
+  <p>周末上课。无中教辅导（仅外教+助教+班主任）。不计入GPA。EAP 2/3 免费重修。3次免费测试。</p>
+  <p>免试需6个月内有效成绩（不接受家庭版托福）。</p></section>
+</div>
+
+<div class="page" id="page-rga">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>RGA 双标准评估</h2>
+  <table><tr><th>体系</th><th>RGA C线</th><th>ACCP B线</th></tr>
+  <tr><td>高考主科(150)</td><td>≥111 (74%)</td><td>≥126 (84%)</td></tr>
+  <tr><td>高考选科(100)</td><td>≥74</td><td>≥84</td></tr>
+  <tr><td>学考</td><td>C</td><td>B</td></tr>
+  <tr><td>美高 Standard</td><td>C (GPA≥2.0)</td><td>B (GPA≥3.0)</td></tr>
+  <tr><td>美高 Honors</td><td>GPA≥2.75</td><td>GPA≥3.75</td></tr>
+  <tr><td>美高 AP</td><td>≥3</td><td>≥4.5</td></tr>
+  <tr><td>IB</td><td>≥3</td><td>≥4</td></tr>
+  <tr><td>A Level</td><td>C</td><td>B</td></tr>
+  <tr><td>OSSD</td><td>≥74%</td><td>≥80%</td></tr>
+  <tr><td>DSE</td><td>2级</td><td>3级</td></tr></table>
+  <p>每学年需6学分。数学+英语必修≥0.5学分。赠送修补最多4门录播（哲学/健康/艺术史/环境科学），超出门数按直播收费。</p>
+  <h3>RGA 24-Credit 毕业要求</h3>
+  <p style="font-size:10px;color:var(--m);">来源：RGA毕业要求.png · 至少6学分须通过RGA修读</p>
+  <table><tr><th>学科</th><th>学分</th><th>备注</th></tr>
+  <tr><td>English</td><td>4</td><td></td></tr>
+  <tr><td>Mathematics</td><td>4</td><td></td></tr>
+  <tr><td><b>Science</b></td><td><b>3</b></td><td>其中2门须含实验/Lab</td></tr>
+  <tr><td>Social Studies</td><td>3</td><td>含1分美国史或世界史</td></tr>
+  <tr><td>Art</td><td>1</td><td>Fine Arts / Performing Arts</td></tr>
+  <tr><td>Foreign Language</td><td>—</td><td>不强制，但大学录取可能需要</td></tr>
+  <tr><td>Electives</td><td>9</td><td></td></tr>
+  <tr><th>总计</th><th>24</th><th></th></tr></table></section>
+</div>
+
+<div class="page" id="page-ops">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>服务流程</h2>
+  <div class="info-card"><p>评估成绩单(GPA 3.0+) → 语言评估(EAP1+) → 发放录取 → 开始课程 → 升读大学 → 衔接服务</p></div>
+  <h3>直播课班主任流程</h3>
+  <div class="info-card"><p>交接学生 → Bess确认方案 → 建群 → 拉Bess → 介绍人员 → 改群名 → 下载Classin → 安排注册 → 电话选课 → <b>禁止AI政策</b></p></div>
+  <h3>KA转案</h3>
+  <div class="info-card"><p>Bess处理课程相关。新航道/学为贵自行建群，其他由我方建群。</p></div></section>
+</div>
+
+<div class="page" id="page-faq">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <div class="faq-item"><div class="q">澳新春二不排课？</div><div class="a">留给签证/COE准备。</div></div>
+  <div class="faq-item"><div class="q">南大写作2？</div><div class="a">27春大概率不开，仅20门澳新方向可能开。非MU成绩单可上，线上需告知BD注册GCC。</div></div>
+  <div class="faq-item"><div class="q">线下校区可只读一学期？</div><div class="a">南大/复旦不行。北外可以，半年¥40,000，不补差价。</div></div>
+  <div class="faq-item"><div class="q">加州跃升去南大？</div><div class="a">不行。仅北外和复旦。</div></div>
+  <div class="faq-item"><div class="q">写作2注册在哪？</div><div class="a">MU已不提供。仅GCC提供，仅限20门项目。</div></div>
+  <div class="faq-item"><div class="q">录播vs直播？</div><div class="a">录播无专门助教，5h中教辅导，无人监考，约2周出分，成绩单不标注。直播40h外教+20h中教，约8周。</div></div>
+  <div class="faq-item"><div class="q">加拿大录取率？</div><div class="a">多大~90%，麦马~95%，阿尔伯塔~100%，卡尔加里~100%，UBC仅~10%。</div></div>
+</div>
+
+<div class="page" id="page-links">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <section><h2>腾讯文档链接</h2>
+  <table><tr><th>用途</th><th>文档ID</th></tr>
+  <tr><td>方案汇总表</td><td>DSEJjQUN1cGtTUXZP</td></tr>
+  <tr><td>RGA课程信息汇总</td><td>DZlp4ak9CeG9pYWp2</td></tr>
+  <tr><td>学生注册信息查询</td><td>DSFVMbHhiR09GY3Vu</td></tr>
+  <tr><td>线下校区FAQ</td><td>DZmVnTXFoRXVydFBR</td></tr>
+  <tr><td>方案模板</td><td>rX2BP3lyfBSpiTfafCAPpa</td></tr>
+  <tr><td>澳洲转学分</td><td>DTk1ndUZ3dEhuS0FC</td></tr></table></section>
+</div>
+
+<div class="page" id="page-cases">
+  <a class="btn-back" onclick="showPage('home')">← 返回首页</a>
+  <table><tr><th>学生</th><th>项目</th><th>结果</th></tr>
+  <tr><td>杨宇翔</td><td>Davis 20门 商科</td><td>UTS 减免60学分</td></tr>
+  <tr><td>唐诗雨</td><td>MU 10门</td><td>昆士兰 减免16学分</td></tr>
+  <tr><td>池晨</td><td>C9线下 北美Plus 20门</td><td>28秋升读，STEM</td></tr></table>
+</div>
+</div>
+
+<script>
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.querySelectorAll('.sidebar a').forEach(a=>a.classList.remove('active'));
+  const titles={home:'IPERC 全线业务手册',accp10n:'北美A类 10门',accp14n:'北美A类升级 14门',accp20n:'北美Plus 20门',calLeap:'加州跃升',xhdJunior:'新航道少年班',xhdQihang:'新航道启航计划',accp10a:'澳新 10门',accp20a:'澳新Plus 20门',gcp:'GCP',channels:'渠道合作',campus:'线下校区',pricing:'定价总表',lowerSchool:'小学&初中课程',rgaCourses:'RGA高中课程',schools:'注册院校',eap:'EAP',rga:'RGA评估',ops:'运营流程',faq:'FAQ',links:'外部链接',cases:'学生案例'};
+  document.getElementById('pageTitle').textContent=titles[name]||'IPERC 全线业务手册';
+  window.scrollTo(0,0);
+}
+function search(){
+  const q=document.getElementById('search').value.toLowerCase();
+  if(!q){document.querySelectorAll('.page.active section').forEach(s=>s.style.display='');return;}
+  document.querySelectorAll('.page.active section').forEach(s=>{
+    s.style.display=s.textContent.toLowerCase().includes(q)?'':'none';
+  });
+}
+</script>
+</body>
+</html>
